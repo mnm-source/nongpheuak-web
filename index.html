@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>น้องเผือก ข่าวรถไฟฟ้า</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Prompt:wght@600;700&display=swap">
+<style>
+/* Layout: แถบหัวบางๆ + กรอบข่าวใหญ่ 1 กรอบเต็มจอ (แถบค้นหาด้านบน รายการข่าวเลื่อนอยู่ภายใน)
+   Color: ม่วงเผือกเป็นสีแบรนด์ · แดง/เหลือง/เขียว/เทา เป็นสีระดับข่าวเหมือนในไลน์ */
+:root {
+  --bg: #F3F1F8; --surface: #FFFFFF; --surface-2: #F0ECF7; --fg: #231F2E; --muted: #6A6479; --line: #DDD7E8;
+  --brand: #5B3F94; --brand-fg: #FFFFFF; --brand-soft: #E7DFF5;
+  --red: #C62828; --amber: #B26A00; --green: #2E7D32; --grey: #6B6F76;
+  --font-display: "Prompt", "IBM Plex Sans Thai", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans Thai", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #17141F; --surface: #211D2C; --surface-2: #2A2538; --fg: #EEEAF6; --muted: #A59EB8; --line: #3A3450;
+    --brand: #B9A2F0; --brand-fg: #1B1429; --brand-soft: #34294F;
+    --red: #FF8A80; --amber: #FFC259; --green: #81C784; --grey: #B0B4BA; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #17141F; --surface: #211D2C; --surface-2: #2A2538; --fg: #EEEAF6; --muted: #A59EB8; --line: #3A3450;
+  --brand: #B9A2F0; --brand-fg: #1B1429; --brand-soft: #34294F;
+  --red: #FF8A80; --amber: #FFC259; --green: #81C784; --grey: #B0B4BA; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 12px; display: flex; flex-direction: column; gap: 12px; }
+button, input, select { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--brand); outline-offset: 2px; }
+.shell { width: 100%; max-width: 980px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; flex: 1; min-height: 0; }
+
+/* ---------- แถบหัว ---------- */
+.top { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 700; font-size: 19px; min-width: 0; }
+.logo { width: 34px; height: 34px; border-radius: 11px; background: var(--brand); color: var(--brand-fg); display: grid; place-items: center; font-size: 18px; flex: none; }
+.sub { font-family: var(--font-body); font-weight: 400; font-size: 12.5px; color: var(--muted); display: block; line-height: 1.3; }
+.tools { display: flex; gap: 8px; }
+.btn { border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: 6px 12px; cursor: pointer; min-height: 38px; display: inline-flex; align-items: center; font-size: 14px; }
+.btn:hover { border-color: var(--brand); }
+.btn.primary { background: var(--brand); color: var(--brand-fg); border-color: var(--brand); font-weight: 600; }
+
+/* ---------- กรอบข่าวใหญ่ ---------- */
+.board { flex: 1; min-height: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; display: flex; flex-direction: column; overflow: hidden; }
+.bar { padding: 12px; border-bottom: 1px solid var(--line); display: grid; gap: 10px; background: var(--surface); }
+.tabs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; }
+.tab { border: 1.5px solid var(--line); background: transparent; border-radius: 999px; padding: 5px 12px; cursor: pointer; white-space: nowrap; font-size: 14px; display: inline-flex; gap: 8px; align-items: center; min-height: 36px; }
+.tab .n { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 13px; }
+.tab[aria-pressed="true"] { background: var(--brand); border-color: var(--brand); color: var(--brand-fg); }
+.tab[aria-pressed="true"] .n { color: inherit; opacity: .85; }
+.dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex: none; }
+.d-red { background: var(--red); } .d-yellow { background: var(--amber); } .d-green { background: var(--green); } .d-grey { background: var(--grey); } .d-all { background: var(--brand); }
+.tab[aria-pressed="true"] .dot { box-shadow: 0 0 0 2px var(--brand-fg); }
+.search { display: grid; grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr)); gap: 8px; }
+.search label { display: grid; gap: 2px; font-size: 12px; color: var(--muted); min-width: 0; }
+.search input, .search select { border: 1px solid var(--line); background: var(--surface-2); border-radius: 10px; padding: 7px 10px; min-height: 40px; width: 100%; min-width: 0; }
+.row2 { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+.chipbtn { border: 1px solid var(--line); background: transparent; border-radius: 8px; padding: 3px 10px; cursor: pointer; font-size: 13px; min-height: 30px; }
+.chipbtn:hover { border-color: var(--brand); }
+.row2 .grow { margin-left: auto; font-variant-numeric: tabular-nums; }
+.check { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+@media (max-width: 640px) { .search { grid-template-columns: 1fr 1fr; } .search label:first-child { grid-column: 1 / -1; } }
+
+/* ---------- รายการข่าว (เลื่อนภายในกรอบ) ---------- */
+.feed { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+.day { position: sticky; top: 0; background: var(--surface-2); color: var(--muted); font-size: 12.5px; font-weight: 600; padding: 5px 14px; border-bottom: 1px solid var(--line); z-index: 1; }
+.item { padding: 12px 14px; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; }
+.item .dot { margin-top: 8px; }
+.item h3 { margin: 0; font-size: 15.5px; font-weight: 600; line-height: 1.45; overflow-wrap: anywhere; }
+.item h3 a { text-decoration: none; }
+.item h3 a:hover { text-decoration: underline; color: var(--brand); }
+.item .meta { font-size: 12.5px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 2px 10px; margin-top: 2px; }
+.item .meta .lv { font-weight: 600; }
+.lv-red { color: var(--red); } .lv-yellow { color: var(--amber); } .lv-green { color: var(--green); } .lv-grey { color: var(--grey); }
+.item p { margin: 6px 0 0; font-size: 14px; color: var(--muted); overflow-wrap: anywhere; }
+.upd { margin-top: 6px; background: var(--brand-soft); border-radius: 8px; padding: 5px 10px; font-size: 13.5px; }
+.upd b { color: var(--brand); }
+.rel { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+.rel a, .nolink { color: var(--brand); }
+.nolink { color: var(--muted); font-style: italic; text-decoration: none; }
+.dropped { opacity: .7; }
+.empty { padding: 40px 18px; text-align: center; color: var(--muted); }
+.empty b { display: block; color: var(--fg); font-size: 16px; margin-bottom: 4px; }
+.foot { font-size: 12.5px; color: var(--muted); padding: 8px 14px; border-top: 1px solid var(--line); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.badge { background: #FFF0D1; color: #8A5200; border-radius: 999px; padding: 1px 10px; font-weight: 600; font-size: 12px; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .badge { background: #3A2D14; color: #FFC259; } }
+:root[data-theme="dark"] .badge { background: #3A2D14; color: #FFC259; }
+details.how { font-size: 13.5px; padding: 0 14px 10px; color: var(--muted); }
+details.how summary { cursor: pointer; padding: 6px 0; color: var(--brand); font-weight: 600; }
+details.how ol { margin: 4px 0 0; padding-left: 20px; }
+details.how code { background: var(--surface-2); border-radius: 6px; padding: 0 6px; font-size: 12.5px; overflow-wrap: anywhere; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+
+</head>
+<body>
+<div class="shell">
+  <div class="top">
+    <div class="brand"><span class="logo" aria-hidden="true">🐘</span>
+      <span>น้องเผือก<span class="sub">ข่าวรถไฟฟ้า MRT แยกตามหมวด</span></span></div>
+    <div class="tools">
+      <button class="btn" id="theme" type="button" aria-label="สลับโหมดสว่าง/มืด">สว่าง/มืด</button>
+    </div>
+  </div>
+
+  <section class="board" aria-label="ข่าวทั้งหมด">
+    <div class="bar">
+      <div class="tabs" id="tabs" role="group" aria-label="เลือกหมวดข่าว"></div>
+      <div class="search">
+        <label for="q">ค้นหา<input id="q" type="search" placeholder="เช่น สายสีส้ม, ค่าโดยสาร, ตกราง"></label>
+        <label for="from">ตั้งแต่วันที่<input id="from" type="date"></label>
+        <label for="to">ถึงวันที่<input id="to" type="date"></label>
+      </div>
+      <div class="row2">
+        <button class="chipbtn" type="button" data-range="1">วันนี้</button>
+        <button class="chipbtn" type="button" data-range="7">7 วัน</button>
+        <button class="chipbtn" type="button" data-range="30">30 วัน</button>
+        <button class="chipbtn" type="button" data-range="0">ทั้งหมด</button>
+        <select id="src" class="chipbtn" aria-label="แหล่งข่าว"><option value="">ทุกแหล่งข่าว</option></select>
+        <select id="sort" class="chipbtn" aria-label="เรียงลำดับ"><option value="desc">ใหม่ → เก่า</option><option value="asc">เก่า → ใหม่</option></select>
+        <label class="check"><input type="checkbox" id="dropped"> รวมข่าวที่คัดทิ้ง</label>
+        <span class="grow" id="count" aria-live="polite"></span>
+      </div>
+    </div>
+    <div class="feed" id="feed"></div>
+    <div class="foot" id="foot"></div>
+  </section>
+</div>
+
+<script>
+(function () {
+  var CATS = [
+    { k: "all", t: "ทุกหมวด" }, { k: "red", t: "อุบัติเหตุทั่วโลก" }, { k: "yellow", t: "ก่อสร้าง" },
+    { k: "green", t: "ประชาสัมพันธ์" }, { k: "grey", t: "อื่นๆ" }
+  ];
+  var LABEL = { red: "ข่าวอุบัติเหตุทั่วโลก", yellow: "ความคืบหน้าโครงการก่อสร้าง", green: "ประชาสัมพันธ์รถไฟฟ้า", grey: "อื่นๆ" };
+  var STORE = "nongpheuak-news-v1";
+
+  // ข้อมูลตัวอย่าง: หัวข้อข่าวที่ระบบเคยดึงได้ ไม่มีลิงก์ เพื่อไม่ให้ลิงก์ปลอมปนกับของจริง
+  function ago(h) { return new Date(Date.now() - h * 3600e3).toISOString(); }
+  var DEMO = [
+    { id: 1, level: "yellow", status: "reported", title: "เตือน ปิดถนน เบี่ยงจราจร ‘วิภาวดีฯ’ ยาว 2 เดือน สร้างรถไฟฟ้าสายสีส้ม", source_name: "bangkokbiznews", published_at: ago(26), line: "สายสีส้ม" },
+    { id: 2, level: "yellow", status: "reported", title: "BEM รับรถไฟฟ้า “สายสีส้ม” ล็อตแรก พ.ย.นี้! จ่อเปิด ม.ค.71", source_name: "LINE TODAY", published_at: ago(40), line: "สายสีส้ม", is_update: 1, delta: "ตัวอย่าง: มีกำหนดรับขบวนรถล็อตแรกเดือนพฤศจิกายน" },
+    { id: 3, level: "yellow", status: "reported", title: "‘สายสีส้ม’ น้ำท่วมที่ดินราดตก ลุ้นดินรถปลุกอสังหา-ห้างใหม่", source_name: "ประชาชาติธุรกิจ", published_at: ago(20), line: "สายสีส้ม" },
+    { id: 4, level: "grey", status: "reported", title: "BEM Art Training สำหรับน้อง ม.ปลาย คอร์สที่ 2 เปิดรับสมัครแล้ว", source_name: "The Bangkok Insight", published_at: ago(44) },
+    { id: 5, level: "grey", status: "reported", title: "รฟม. รวมพลังผู้บริหาร-พนักงาน จัดกิจกรรมจิตอาสาพัฒนาสวนสุขภาพ", source_name: "BiztalkNEWS", published_at: ago(30) },
+    { id: 6, level: "grey", status: "reported", title: "BEM สนับสนุน Amazing Thailand Marathon Bangkok 2026 อำนวยความสะดวกตลอดทั้ง 2 วันแข่งขัน", source_name: "bangkokbiznews", published_at: ago(52) }
+  ];
+
+  var S = { items: DEMO, demo: true, generated: null, cat: "all", q: "", from: "", to: "", src: "", sort: "desc", dropped: false };
+  var $ = function (id) { return document.getElementById(id); };
+
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function safeUrl(u) { return /^https?:\/\//i.test(u || "") ? u : ""; }
+  function when(it) { return it.published_at || it.fetched_at || ""; }
+  function ymd(iso) { var d = new Date(iso); return isNaN(d) ? "" : d.toLocaleDateString("en-CA", { timeZone: "Asia/Bangkok" }); }
+  function thDay(iso) { var d = new Date(iso); return isNaN(d) ? "ไม่ทราบวันที่" : d.toLocaleDateString("th-TH", { weekday: "short", day: "numeric", month: "long", year: "numeric", timeZone: "Asia/Bangkok" }); }
+  function thTime(iso) { var d = new Date(iso); return isNaN(d) ? "" : d.toLocaleTimeString("th-TH", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "Asia/Bangkok" }) + " น."; }
+  function isDropped(it) { return it.status === "irrelevant" || it.status === "excluded"; }
+  function related(it) {
+    try { var r = typeof it.related_urls === "string" ? JSON.parse(it.related_urls || "[]") : (it.related_urls || []); return r.map(safeUrl).filter(Boolean); }
+    catch (e) { return []; }
+  }
+
+  try {
+    var raw = localStorage.getItem(STORE);
+    if (raw) { var o = JSON.parse(raw); if (o && Array.isArray(o.items) && o.items.length) { S.items = o.items; S.generated = o.generated_at || null; S.demo = false; } }
+  } catch (e) {}
+
+  function accept(text) {
+    var o = JSON.parse(text), items = Array.isArray(o) ? o : o.items;
+    if (!Array.isArray(items)) throw new Error("รูปแบบไฟล์ไม่ถูกต้อง");
+    S.items = items; S.generated = (o && o.generated_at) || null; S.demo = false; S.src = "";
+    try { localStorage.setItem(STORE, JSON.stringify({ generated_at: S.generated, items: items })); } catch (e) {}
+    render();
+  }
+
+  // กรองตามข้อความ/วันที่/แหล่ง/ข่าวคัดทิ้ง (ยังไม่กรองหมวด เพื่อใช้นับจำนวนในแต่ละแท็บ)
+  function matched() {
+    var q = S.q.trim().toLowerCase();
+    return S.items.filter(function (it) {
+      if (isDropped(it) && !S.dropped) return false;
+      var d = ymd(when(it));
+      if (S.from && (!d || d < S.from)) return false;
+      if (S.to && (!d || d > S.to)) return false;
+      if (S.src && (it.source_name || it.source) !== S.src) return false;
+      if (q && ((it.title || "") + " " + (it.summary || "") + " " + (it.line || "") + " " + (it.station || "") + " " + (it.source_name || "")).toLowerCase().indexOf(q) < 0) return false;
+      return true;
+    });
+  }
+
+  function render() {
+    var base = matched(), counts = { all: base.length, red: 0, yellow: 0, green: 0, grey: 0 };
+    base.forEach(function (it) { if (counts[it.level] != null) counts[it.level]++; });
+    $("tabs").innerHTML = CATS.map(function (c) {
+      return '<button type="button" class="tab" data-c="' + c.k + '" aria-pressed="' + (S.cat === c.k) + '"><span class="dot d-' + c.k + '"></span>' +
+        esc(c.t) + ' <span class="n">' + counts[c.k] + "</span></button>";
+    }).join("");
+
+    var srcs = {}; S.items.forEach(function (it) { var s = it.source_name || it.source; if (s) srcs[s] = 1; });
+    $("src").innerHTML = '<option value="">ทุกแหล่งข่าว</option>' + Object.keys(srcs).sort().map(function (s) {
+      return '<option value="' + esc(s) + '"' + (s === S.src ? " selected" : "") + ">" + esc(s) + "</option>"; }).join("");
+
+    var shown = base.filter(function (it) { return S.cat === "all" || it.level === S.cat; });
+    shown.sort(function (a, b) { var d = new Date(when(b)) - new Date(when(a)); return S.sort === "asc" ? -d : d; });
+    $("count").textContent = "พบ " + shown.length + " รายการ";
+    $("foot").innerHTML = S.demo ? '<span class="badge">ข้อมูลตัวอย่าง</span> ยังโหลดข่าวจริงไม่ได้ จึงแสดงตัวอย่าง (ระบบจะลองใหม่อัตโนมัติ)'
+      : "อัปเดตข้อมูลล่าสุด " + (S.generated ? thDay(S.generated) + " " + thTime(S.generated) : "ไม่ทราบเวลา") + " · ข่าวทั้งหมดในไฟล์ " + S.items.length + " รายการ";
+
+    var feed = $("feed");
+    if (!shown.length) {
+      feed.innerHTML = '<div class="empty"><b>' + (S.cat === "red" ? "ไม่มีข่าวอุบัติเหตุตามเงื่อนไขที่เลือก" : "ไม่พบข่าวตามเงื่อนไขที่เลือก") +
+        "</b>ลองเปลี่ยนคำค้น ขยายช่วงวันที่ หรือกด “ทั้งหมด”</div>";
+      return;
+    }
+    var html = "", lastDay = "";
+    shown.forEach(function (it) {
+      var day = thDay(when(it));
+      if (day !== lastDay) { html += '<div class="day">' + esc(day) + "</div>"; lastDay = day; }
+      var url = safeUrl(it.url), rel = related(it);
+      var title = url ? '<a href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + esc(it.title) + "</a>" : esc(it.title);
+      var sum = it.summary && it.summary.trim() !== (it.title || "").trim() ? "<p>" + esc(it.summary) + "</p>" : "";
+      var upd = it.is_update && it.delta ? '<div class="upd"><b>ความคืบหน้า:</b> ' + esc(it.delta) + "</div>" : "";
+      var tags = (it.line ? "<span>" + esc(it.line) + "</span>" : "") + (it.station ? "<span>สถานี" + esc(it.station) + "</span>" : "");
+      var more = rel.length ? '<div class="rel">แหล่งเพิ่มเติม: ' + rel.map(function (u, i) { return '<a href="' + esc(u) + '" target="_blank" rel="noopener noreferrer">' + (i + 1) + "</a>"; }).join(" · ") + "</div>" : "";
+      var note = url ? "" : '<div class="rel"><span class="nolink">ข้อมูลตัวอย่าง ไม่มีลิงก์</span></div>';
+      var lv = isDropped(it) ? "grey" : it.level;
+      html += '<article class="item' + (isDropped(it) ? " dropped" : "") + '"><span class="dot d-' + esc(lv) + '"></span><div>' +
+        "<h3>" + title + "</h3>" +
+        '<div class="meta"><span class="lv lv-' + esc(lv) + '">' + esc(isDropped(it) ? "คัดทิ้ง" : (LABEL[it.level] || "")) + "</span><span>" + esc(it.source_name || it.source || "") +
+        "</span><span>" + thTime(when(it)) + "</span>" + tags + "</div>" + sum + upd + more + note + "</div></article>";
+    });
+    feed.innerHTML = html;
+    feed.scrollTop = 0;
+  }
+
+  $("tabs").addEventListener("click", function (e) { var b = e.target.closest(".tab"); if (b) { S.cat = b.getAttribute("data-c"); render(); } });
+  $("q").addEventListener("input", function (e) { S.q = e.target.value; render(); });
+  $("from").addEventListener("change", function (e) { S.from = e.target.value; render(); });
+  $("to").addEventListener("change", function (e) { S.to = e.target.value; render(); });
+  $("src").addEventListener("change", function (e) { S.src = e.target.value; render(); });
+  $("sort").addEventListener("change", function (e) { S.sort = e.target.value; render(); });
+  $("dropped").addEventListener("change", function (e) { S.dropped = e.target.checked; render(); });
+  document.querySelector(".row2").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-range]"); if (!b) return;
+    var n = +b.getAttribute("data-range");
+    if (!n) { S.from = ""; S.to = ""; }
+    else { S.to = ymd(new Date().toISOString()); S.from = ymd(new Date(Date.now() - (n - 1) * 86400e3).toISOString()); }
+    $("from").value = S.from; $("to").value = S.to; render();
+  });
+  $("theme").addEventListener("click", function () {
+    var root = document.documentElement, dark = root.getAttribute("data-theme") === "dark" ||
+      (!root.getAttribute("data-theme") && matchMedia("(prefers-color-scheme: dark)").matches);
+    root.setAttribute("data-theme", dark ? "light" : "dark");
+  });
+  function fetchNews() {
+    fetch("news.json?t=" + Date.now(), { cache: "no-store" }).then(function (r) {
+      if (!r.ok) throw new Error("HTTP " + r.status); return r.text();
+    }).then(accept).catch(function () { /* ใช้ข้อมูลที่จำไว้/ตัวอย่างต่อไป */ });
+  }
+  render(); fetchNews(); setInterval(fetchNews, 10 * 60 * 1000);
+})();
+</script>
+</body>
+</html>
