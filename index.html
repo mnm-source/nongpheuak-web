@@ -90,7 +90,7 @@ h1, h2, h3 { font-family: var(--serif); }
 .btn-gold { background: var(--night-gold); color: #2B1E0A; border-radius: 999px; padding: 11px 24px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; min-height: 46px; border: 0; cursor: pointer; }
 .btn-ghost { border: 1.5px solid rgba(255,255,255,.4); color: var(--night-fg); border-radius: 999px; padding: 10px 22px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; min-height: 46px; }
 .btn-ghost:hover { border-color: var(--night-gold); color: var(--night-gold); }
-.arch { position: relative; width: 100%; aspect-ratio: 4 / 4.6; max-height: 520px; margin-inline: auto; border-radius: 999px 999px 28px 28px; overflow: hidden;
+.arch { position: relative; width: 100%; aspect-ratio: 4 / 4.6; max-height: 520px; margin-inline: auto; border-radius: 28px; overflow: hidden;
   background: linear-gradient(160deg, #CFC4F5, #A992E6); border: 3px solid rgba(227,195,119,.7); box-shadow: 0 24px 60px rgba(0,0,0,.45); display: grid; place-items: center; }
 .arch img.photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .arch .mascot { width: 74%; max-width: 330px; aspect-ratio: 1; display: block; }
@@ -195,6 +195,40 @@ h1, h2, h3 { font-family: var(--serif); }
 footer { background: var(--night); color: var(--night-muted); padding-block: 34px max(30px, env(safe-area-inset-bottom, 0px)); font-size: 13.5px; }
 .fgrid { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: center; }
 footer .bname { color: var(--night-fg); font-size: 18px; }
+/* ---------- ล่าสุดแต่ละสาย / ไทม์ไลน์ / สถิติ ---------- */
+.lgrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 900px) { .lgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .lgrid { grid-template-columns: minmax(0, 1fr); } }
+.lc { background: var(--surface); border: 1px solid var(--line); border-left: 5px solid var(--lcol, var(--brand)); border-radius: 16px; padding: 14px 16px; display: grid; gap: 4px; text-decoration: none; color: inherit; align-content: start; }
+.lc:hover { box-shadow: 0 8px 22px rgba(60,30,110,.12); }
+.lc .ln { font-weight: 700; font-size: 15px; } .lc .lt2 { font-size: 14px; overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.lc small { color: var(--muted); font-size: 12.5px; }
+.tl { display: grid; gap: 26px; }
+.tlg h3 { margin: 0 0 12px; font-size: 20px; }
+.tlist { position: relative; margin: 0; padding: 0 0 0 26px; list-style: none; display: grid; gap: 14px; }
+.tlist::before { content: ""; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 2px; background: var(--line); }
+.tlist li { position: relative; }
+.tlist li::before { content: ""; position: absolute; left: -26px; top: 6px; width: 16px; height: 16px; border-radius: 50%; background: var(--surface); border: 3px solid var(--gold); }
+.tlist .td { font-size: 12.5px; color: var(--muted); } .tlist .tt { font-weight: 600; overflow-wrap: anywhere; }
+.tlist .tt a { color: inherit; text-decoration: none; } .tlist .tt a:hover { text-decoration: underline; }
+.tlist .tu { font-size: 13.5px; color: var(--amber); }
+.stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 760px) { .stats { grid-template-columns: minmax(0, 1fr); } }
+.sbox { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px; }
+.sbox h3 { margin: 0 0 12px; font-size: 17px; }
+.bar { display: grid; grid-template-columns: minmax(70px, 120px) minmax(0, 1fr) 32px; gap: 10px; align-items: center; font-size: 13.5px; margin: 7px 0; }
+.bar .tr { height: 12px; background: var(--surface-2); border-radius: 999px; overflow: hidden; } .bar .tr i { display: block; height: 100%; background: var(--bc, var(--brand)); border-radius: 999px; }
+.bar b { text-align: right; font-variant-numeric: tabular-nums; } .bar span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.days { display: flex; align-items: flex-end; gap: 4px; height: 120px; }
+.days div { flex: 1; background: var(--brand); border-radius: 4px 4px 0 0; min-height: 2px; position: relative; opacity: .85; }
+.dayl { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-top: 6px; }
+.share { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 3px 12px; font-size: 13px; cursor: pointer; min-height: 32px; }
+.share:hover { border-color: var(--brand); }
+.crow { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 4px; }
+.toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: #1D1430; color: #fff; padding: 8px 18px; border-radius: 999px; font-size: 14px; z-index: 9; }
+.flinks { display: flex; gap: 10px; flex-wrap: wrap; }
+.flinks a { color: var(--night-fg); border: 1px solid rgba(255,255,255,.3); border-radius: 999px; padding: 6px 16px; text-decoration: none; font-size: 13.5px; }
+.flinks a:hover { border-color: var(--night-gold); color: var(--night-gold); }
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; } }
 </style>
 </head>
@@ -208,7 +242,7 @@ footer .bname { color: var(--night-fg); font-size: 18px; }
         <span><span class="bname" data-i="name"></span><span class="bsub" style="display:block" data-i="sub"></span></span>
       </a>
       <div class="links">
-        <a href="#categories" data-i="navCats"></a><a href="#news" data-i="navNews"></a><a href="#about" data-i="navAbout"></a>
+        <a href="#categories" data-i="navCats"></a><a href="#news" data-i="navNews"></a><a href="#timeline" data-i="navTimeline"></a><a href="#stats" data-i="navStats"></a><a href="#about" data-i="navAbout"></a>
       </div>
       <div class="tools">
         <div class="seg" role="group" aria-label="Language / ภาษา">
@@ -230,6 +264,13 @@ footer .bname { color: var(--night-fg); font-size: 18px; }
   </div>
 </section>
 
+<section class="sec" id="lines" style="padding-top:0" hidden>
+  <div class="wrap">
+    <div class="sec-head"><div class="orn" data-i="linesKicker"></div><h2 data-i="linesTitle"></h2><p data-i="linesLead"></p></div>
+    <div class="lgrid" id="lgrid"></div>
+  </div>
+</section>
+
 <section class="sec" id="news" style="padding-top:0">
   <div class="wrap">
     <div class="sec-head"><div class="orn" data-i="newsKicker"></div><h2 data-i="newsTitle"></h2><p data-i="newsLead"></p></div>
@@ -245,6 +286,7 @@ footer .bname { color: var(--night-fg); font-size: 18px; }
         <button class="chipbtn" type="button" data-range="7" data-i="d7"></button>
         <button class="chipbtn" type="button" data-range="30" data-i="d30"></button>
         <button class="chipbtn" type="button" data-range="0" data-i="all"></button>
+        <select id="lsel" class="chipbtn" aria-label="สาย"></select>
         <select id="src" class="chipbtn"></select>
         <select id="sort" class="chipbtn"></select>
         <label class="check"><input type="checkbox" id="dropped"> <span data-i="dropped"></span></label>
@@ -254,6 +296,20 @@ footer .bname { color: var(--night-fg); font-size: 18px; }
     <div class="gal" id="gal"></div>
     <button class="chipbtn more" id="more" type="button" hidden></button>
     <div class="stat" id="foot"></div>
+  </div>
+</section>
+
+<section class="sec" id="timeline">
+  <div class="wrap">
+    <div class="sec-head"><div class="orn" data-i="tlKicker"></div><h2 data-i="tlTitle"></h2><p data-i="tlLead"></p></div>
+    <div class="tl" id="tl"></div>
+  </div>
+</section>
+
+<section class="sec about" id="stats" style="background:var(--bg)">
+  <div class="wrap">
+    <div class="sec-head"><div class="orn" data-i="stKicker"></div><h2 data-i="stTitle"></h2><p data-i="stLead"></p></div>
+    <div class="stats" id="statbox"></div>
   </div>
 </section>
 
@@ -276,6 +332,7 @@ footer .bname { color: var(--night-fg); font-size: 18px; }
 <footer>
   <div class="wrap fgrid">
     <div><span class="bname" data-i="name"></span><div data-i="foot1"></div></div>
+    <div class="flinks" id="flinks"></div>
     <div id="updated"></div>
   </div>
 </footer>
@@ -285,7 +342,11 @@ footer .bname { color: var(--night-fg); font-size: 18px; }
   var TXT = {
     th: {
       name: "น้องเผือก", sub: "ข่าวรถไฟฟ้า MRT แยกตามหมวด", theme: "สว่าง/มืด",
-      navCats: "หมวดข่าว", navNews: "ข่าวทั้งหมด", navAbout: "เกี่ยวกับน้องเผือก",
+      navCats: "หมวดข่าว", navNews: "ข่าวทั้งหมด", navAbout: "เกี่ยวกับน้องเผือก", navTimeline: "ไทม์ไลน์", navStats: "สถิติ",
+      linesKicker: "แต่ละสาย", linesTitle: "ข่าวล่าสุดของแต่ละสาย", linesLead: "ข่าวล่าสุดที่พบของแต่ละสาย พร้อมลิงก์ต้นฉบับ (ไม่ใช่สถานะเดินรถแบบเรียลไทม์)", allLines: "ทุกสาย", noLine: "ไม่ระบุสาย",
+      tlKicker: "ไทม์ไลน์", tlTitle: "ความคืบหน้าโครงการก่อสร้าง", tlLead: "เรียงตามเวลาของข่าว แยกตามสาย", tlNone: "ยังไม่มีข่าวความคืบหน้าโครงการก่อสร้าง",
+      stKicker: "สถิติ", stTitle: "สรุปข่าว 30 วันล่าสุด", stLead: "นับจากข่าวที่ระบบเก็บไว้จริง", stCat: "จำนวนข่าวแต่ละหมวด", stLine: "สายที่ถูกกล่าวถึงมากสุด", stSrc: "แหล่งข่าวมากสุด", stDay: "ข่าวต่อวัน (14 วัน)", stNone: "ยังไม่มีข้อมูล",
+      share: "แชร์", copied: "คัดลอกลิงก์แล้ว", rss: "ติดตาม RSS", addFriend: "เพิ่มเพื่อน LINE",
       latest: "ข่าวล่าสุด", source: "ที่มา", progress: "ความคืบหน้า", open: "อ่านข่าวต้นฉบับ", seeAll: "ดูข่าวทั้งหมด", more: "แหล่งเพิ่มเติม",
       catsKicker: "หมวดข่าว", catsTitle: "เลือกอ่านตามหมวด", catsLead: "ทุกข่าวถูกจัดเป็น 4 หมวด แต่ละหมวดมีสีของตัวเองเหมือนที่ส่งในไลน์",
       newsKicker: "คลังข่าว", newsTitle: "ข่าวทั้งหมดและค้นหาย้อนหลัง", newsLead: "ค้นหาด้วยคำสำคัญ ช่วงวันที่ หรือแหล่งข่าว",
@@ -295,7 +356,7 @@ footer .bname { color: var(--night-fg); font-size: 18px; }
       found: function (n) { return "พบ " + n + " รายการ"; },
       cats: { all: "ทุกหมวด", red: "อุบัติเหตุทั่วโลก", yellow: "ก่อสร้าง", green: "ประชาสัมพันธ์", grey: "อื่นๆ" },
       lvl: { red: "ข่าวอุบัติเหตุทั่วโลก", yellow: "ความคืบหน้าโครงการก่อสร้าง", green: "ประชาสัมพันธ์รถไฟฟ้า", grey: "อื่นๆ" },
-      desc: { red: "อุบัติเหตุรถไฟและรถไฟฟ้าที่เกิดขึ้นทั่วโลก (ส่งเตือนเด้งใน LINE)", yellow: "โครงการที่มีแผนและอยู่ระหว่างก่อสร้าง เช่น สายสีส้ม", green: "ข่าวประชาสัมพันธ์รถไฟฟ้าที่เปิดให้บริการอยู่", grey: "เรื่องที่เกี่ยวข้องแต่ไม่เข้า 3 หมวดหลัก" },
+      desc: { red: "อุบัติเหตุรถไฟและรถไฟฟ้าที่เกิดขึ้นทั่วโลก", yellow: "โครงการที่มีแผนและอยู่ระหว่างก่อสร้าง เช่น สายสีส้ม", green: "ข่าวประชาสัมพันธ์รถไฟฟ้าที่เปิดให้บริการอยู่", grey: "เรื่องที่เกี่ยวข้องแต่ไม่เข้า 3 หมวดหลัก" },
       noNews: "ยังไม่มีข่าวในหมวดนี้",
       empty1: "ไม่พบข่าวตามเงื่อนไขที่เลือก", empty2: "ลองเปลี่ยนคำค้น ขยายช่วงวันที่ หรือกด “ทั้งหมด”",
       noHero: "ยังไม่มีข่าว", demo: "ข้อมูลตัวอย่าง", demoMsg: "ยังโหลดข่าวจริงไม่ได้ จึงแสดงตัวอย่าง (ระบบจะลองใหม่อัตโนมัติ)",
@@ -304,12 +365,16 @@ footer .bname { color: var(--night-fg); font-size: 18px; }
       aboutBody: "น้องเผือกคือผู้ช่วย AI ที่อ่านข่าวรถไฟฟ้า MRT ให้คุณทุกวัน คัดจากสำนักข่าวที่น่าเชื่อถือ จัดเป็นหมวดตามความสำคัญ แล้วสรุปส่งเข้า LINE ตอน 08:00",
       f1t: "มีลิงก์ต้นฉบับทุกข่าว", f1: "ไม่มีข่าวที่ AI สร้างขึ้นเอง ตรวจสอบที่มาได้เสมอ",
       f2t: "ไม่รายงานข่าวซ้ำ", f2: "เรื่องเดียวกันจากหลายสำนักรวมเป็นหนึ่ง และแจ้งซ้ำเมื่อมีความคืบหน้าเท่านั้น",
-      f3t: "สีบอกความสำคัญ", f3: "แดง = ด่วน เด้งเตือนใน LINE · เหลือง เขียว เทา = ส่งแบบเงียบ",
+      f3t: "สีบอกความสำคัญ", f3: "ทุกสีเด้งเตือนใน LINE เมื่อมีข่าวใหม่ แดง = เรื่องด่วน เหลือง = ก่อสร้าง เขียว = ประชาสัมพันธ์ เทา = อื่นๆ",
       foot1: "หัวข้อข่าวแสดงตามภาษาของต้นฉบับ (ภาษาไทย)"
     },
     en: {
       name: "Nong Pheuak", sub: "Bangkok MRT news, sorted by category", theme: "Light/Dark",
-      navCats: "Categories", navNews: "All news", navAbout: "About",
+      navCats: "Categories", navNews: "All news", navAbout: "About", navTimeline: "Timeline", navStats: "Stats",
+      linesKicker: "By line", linesTitle: "Latest news for each line", linesLead: "The newest story found for each line, with a link to the source (not live service status)", allLines: "All lines", noLine: "Line not specified",
+      tlKicker: "Timeline", tlTitle: "Construction progress", tlLead: "Stories in date order, grouped by line", tlNone: "No construction progress stories yet",
+      stKicker: "Statistics", stTitle: "Last 30 days at a glance", stLead: "Counted from the stories actually collected", stCat: "Stories per category", stLine: "Most mentioned lines", stSrc: "Top sources", stDay: "Stories per day (14 days)", stNone: "No data yet",
+      share: "Share", copied: "Link copied", rss: "RSS feed", addFriend: "Add on LINE",
       latest: "Latest", source: "Source", progress: "Update", open: "Read original", seeAll: "Browse all news", more: "More sources",
       catsKicker: "Categories", catsTitle: "Read by category", catsLead: "Every story is filed under one of four categories, each with its own colour, just like in LINE.",
       newsKicker: "The archive", newsTitle: "All news and past-news search", newsLead: "Search by keyword, date range or source.",
@@ -319,7 +384,7 @@ footer .bname { color: var(--night-fg); font-size: 18px; }
       found: function (n) { return n + (n === 1 ? " result" : " results"); },
       cats: { all: "All", red: "Accidents worldwide", yellow: "Construction", green: "Service news", grey: "Other" },
       lvl: { red: "Rail accidents worldwide", yellow: "Construction progress", green: "Service announcements", grey: "Other" },
-      desc: { red: "Train and metro accidents anywhere in the world (pushes an alert on LINE)", yellow: "Planned and under-construction lines, such as the Orange Line", green: "Announcements about MRT lines already in service", grey: "Related stories that fit none of the three main categories" },
+      desc: { red: "Train and metro accidents anywhere in the world", yellow: "Planned and under-construction lines, such as the Orange Line", green: "Announcements about MRT lines already in service", grey: "Related stories that fit none of the three main categories" },
       noNews: "No stories in this category yet",
       empty1: "No news matches your filters", empty2: "Try a different keyword, a wider date range, or “All time”",
       noHero: "No news yet", demo: "Sample data", demoMsg: "Live news could not be loaded, showing samples (it will retry automatically)",
@@ -328,10 +393,11 @@ footer .bname { color: var(--night-fg); font-size: 18px; }
       aboutBody: "Nong Pheuak is an AI assistant that reads Bangkok MRT news for you every day. It picks stories from trusted outlets, sorts them by importance and sends a summary to LINE at 08:00.",
       f1t: "Every story links to its source", f1: "Nothing is written by the AI. You can always check where it came from.",
       f2t: "No repeated stories", f2: "The same story from several outlets is merged, and only repeated when there is progress.",
-      f3t: "Colour shows priority", f3: "Red = urgent, pushes an alert on LINE · yellow, green, grey = silent",
+      f3t: "Colour shows priority", f3: "Every colour pushes an alert on LINE when there is new news. Red = urgent, yellow = construction, green = service, grey = other",
       foot1: "Headlines appear in their original language (Thai)"
     }
   };
+  var LINE_ADD_URL = ""; // ใส่ลิงก์เพิ่มเพื่อน เช่น "https://line.me/R/ti/p/@xxxxxxx" (ว่าง = ซ่อนปุ่ม)
   var CATS = ["all", "red", "yellow", "green", "grey"], MAIN = ["red", "yellow", "green", "grey"];
   var STORE = "nongpheuak-news-v1", LSTORE = "nongpheuak-lang", PAGE = 12;
 
@@ -344,7 +410,7 @@ footer .bname { color: var(--night-fg); font-size: 18px; }
     { id: 5, level: "grey", status: "reported", title: "รฟม. รวมพลังผู้บริหาร-พนักงาน จัดกิจกรรมจิตอาสาพัฒนาสวนสุขภาพ", source_name: "BiztalkNEWS", published_at: ago(30) }
   ];
 
-  var S = { items: DEMO, demo: true, generated: null, cat: "all", q: "", from: "", to: "", src: "", sort: "desc", dropped: false, lang: "th", shown: PAGE };
+  var S = { items: DEMO, demo: true, generated: null, cat: "all", q: "", from: "", to: "", src: "", line: "", sort: "desc", dropped: false, lang: "th", shown: PAGE };
   var $ = function (id) { return document.getElementById(id); };
   var T = function () { return TXT[S.lang]; };
   try { var sl = localStorage.getItem(LSTORE); if (sl === "th" || sl === "en") S.lang = sl; else if (!/^th/i.test(navigator.language || "th")) S.lang = "en"; } catch (e) {}
@@ -387,6 +453,7 @@ footer .bname { color: var(--night-fg); font-size: 18px; }
       var d = ymd(when(it));
       if (S.from && (!d || d < S.from)) return false;
       if (S.to && (!d || d > S.to)) return false;
+      if (S.line && (it.line || "") !== S.line) return false;
       if (S.src && (it.source_name || it.source) !== S.src) return false;
       if (q && ((it.title || "") + " " + (it.summary || "") + " " + (it.line || "") + " " + (it.station || "") + " " + (it.source_name || "")).toLowerCase().indexOf(q) < 0) return false;
       return true;
@@ -442,6 +509,8 @@ footer .bname { color: var(--night-fg); font-size: 18px; }
     var srcs = {}; S.items.forEach(function (it) { var s = it.source_name || it.source; if (s) srcs[s] = 1; });
     $("src").innerHTML = '<option value="">' + esc(t.allSrc) + "</option>" + Object.keys(srcs).sort().map(function (s) { return '<option value="' + esc(s) + '"' + (s === S.src ? " selected" : "") + ">" + esc(s) + "</option>"; }).join("");
 
+    var lset = {}; S.items.forEach(function (it) { if (!isDropped(it) && it.line) lset[it.line] = 1; });
+    $("lsel").innerHTML = '<option value="">' + esc(t.allLines) + "</option>" + Object.keys(lset).sort().map(function (l) { return '<option value="' + esc(l) + '"' + (l === S.line ? " selected" : "") + ">" + esc(l) + "</option>"; }).join("");
     var list = base.filter(function (it) { return S.cat === "all" || lv(it) === S.cat; });
     list.sort(function (a, b) { var d = byNew(a, b); return S.sort === "asc" ? -d : d; });
     $("count").textContent = t.found(list.length);
@@ -456,9 +525,61 @@ footer .bname { color: var(--night-fg); font-size: 18px; }
       var more = rel.length ? '<div class="rel">' + esc(t.more) + ": " + rel.map(function (u, i) { return '<a href="' + esc(u) + '" target="_blank" rel="noopener noreferrer">' + (i + 1) + "</a>"; }).join(" · ") + "</div>" : "";
       var read = url ? '<a class="read" href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + esc(t.open) + " →</a>" : '<span class="rel"><i>' + esc(t.nolink) + "</i></span>";
       return '<article class="card ' + L + (isDropped(it) ? " dropped" : "") + '"><div class="pic">' + thumbImg(it) + '<span class="ph">' + RAIL + '</span><span class="lvl">' + esc(isDropped(it) ? t.dropTag : t.lvl[L]) + "</span></div>" +
-        '<div class="cbody"><h3>' + title + "</h3>" + sum + upd + '<div class="cmeta"><b>' + esc(it.source_name || it.source || "") + "</b><span>" + esc(fDay(when(it))) + " " + esc(fTime(when(it))) + "</span>" + tags + "</div>" + more + read + "</div></article>";
+        '<div class="cbody"><h3>' + title + "</h3>" + sum + upd + '<div class="cmeta"><b>' + esc(it.source_name || it.source || "") + "</b><span>" + esc(fDay(when(it))) + " " + esc(fTime(when(it))) + "</span>" + tags + "</div>" + more +
+        '<div class="crow">' + read + (url ? '<button type="button" class="share" data-share="' + esc(String(it.id)) + '">' + esc(t.share) + "</button>" : "") + "</div></div></article>";
     }).join("");
     var m = $("more"); m.hidden = list.length <= S.shown;
+  }
+
+  var LCOL = { "น้ำเงิน": "#1E4FA8", "ม่วง": "#7B3FA0", "เหลือง": "#D9A400", "ชมพู": "#D6538A", "ส้ม": "#E8710A", "น้ำตาล": "#8A5A3C" };
+  function lcol(name) { for (var k in LCOL) if ((name || "").indexOf(k) >= 0) return LCOL[k]; return "#5B3F94"; }
+
+  function renderLines() {
+    var t = T(), by = {}, live = liveItems();
+    live.forEach(function (it) { if (it.line && !by[it.line]) by[it.line] = it; });
+    var names = Object.keys(by).sort(function (a, b) { return byNew(by[a], by[b]); });
+    $("lines").hidden = !names.length;
+    $("lgrid").innerHTML = names.map(function (n) {
+      var it = by[n], u = safeUrl(it.url), tag = u ? "a" : "div";
+      return "<" + tag + ' class="lc" style="--lcol:' + lcol(n) + '"' + (u ? ' href="' + esc(u) + '" target="_blank" rel="noopener noreferrer"' : "") + '><span class="ln">' + esc(n) + '</span><span class="lt2">' + esc(it.title) + "</span><small>" + esc(it.source_name || it.source || "") + " · " + esc(fDay(when(it))) + "</small></" + tag + ">";
+    }).join("");
+  }
+
+  function renderTimeline() {
+    var t = T(), by = {};
+    liveItems().filter(function (it) { return lv(it) === "yellow"; }).forEach(function (it) { var k = it.line || t.noLine; (by[k] = by[k] || []).push(it); });
+    var names = Object.keys(by).sort(function (a, b) { return byNew(by[a][0], by[b][0]); });
+    $("tl").innerHTML = names.length ? names.map(function (n) {
+      return '<div class="tlg"><h3>' + esc(n) + '</h3><ol class="tlist">' + by[n].slice(0, 6).map(function (it) {
+        var u = safeUrl(it.url), ti = u ? '<a href="' + esc(u) + '" target="_blank" rel="noopener noreferrer">' + esc(it.title) + "</a>" : esc(it.title);
+        return '<li><div class="td">' + esc(fDay(when(it))) + " · " + esc(it.source_name || it.source || "") + '</div><div class="tt">' + ti + "</div>" + (it.is_update && it.delta ? '<div class="tu">' + esc(t.progress) + ": " + esc(it.delta) + "</div>" : "") + "</li>";
+      }).join("") + "</ol></div>";
+    }).join("") : '<div class="empty"><b>' + esc(t.tlNone) + "</b></div>";
+  }
+
+  function bars(pairs, color) {
+    var t = T(); if (!pairs.length) return "<p style=\"color:var(--muted)\">" + esc(t.stNone) + "</p>";
+    var mx = Math.max.apply(null, pairs.map(function (p) { return p[1]; })) || 1;
+    return pairs.map(function (p) { return '<div class="bar" style="--bc:' + (p[2] || color || "var(--brand)") + '"><span title="' + esc(p[0]) + '">' + esc(p[0]) + '</span><span class="tr"><i style="width:' + Math.max(4, Math.round(p[1] / mx * 100)) + '%"></i></span><b>' + p[1] + "</b></div>"; }).join("");
+  }
+  function top(map, n) { return Object.keys(map).map(function (k) { return [k, map[k]]; }).sort(function (a, b) { return b[1] - a[1]; }).slice(0, n); }
+
+  function renderStats() {
+    var t = T(), now = Date.now(), cut = now - 30 * 86400e3, rows = liveItems().filter(function (it) { return new Date(when(it)).getTime() >= cut; });
+    var c = { red: 0, yellow: 0, green: 0, grey: 0 }, ln = {}, sr = {}, dayc = {};
+    rows.forEach(function (it) { c[lv(it)]++; if (it.line) ln[it.line] = (ln[it.line] || 0) + 1; var s = it.source_name || it.source; if (s) sr[s] = (sr[s] || 0) + 1; var d = ymd(when(it)); dayc[d] = (dayc[d] || 0) + 1; });
+    var col = { red: "var(--red)", yellow: "var(--amber)", green: "var(--green)", grey: "var(--grey)" };
+    var days = [], mx = 1; for (var i = 13; i >= 0; i--) { var d = ymd(new Date(now - i * 86400e3).toISOString()); days.push([d, dayc[d] || 0]); mx = Math.max(mx, dayc[d] || 0); }
+    $("statbox").innerHTML =
+      '<div class="sbox"><h3>' + esc(t.stCat) + "</h3>" + bars(MAIN.map(function (k) { return [t.cats[k], c[k], col[k]]; })) + "</div>" +
+      '<div class="sbox"><h3>' + esc(t.stDay) + '</h3><div class="days">' + days.map(function (p) { return '<div title="' + esc(p[0]) + ": " + p[1] + '" style="height:' + Math.round(p[1] / mx * 100) + '%"></div>'; }).join("") + '</div><div class="dayl"><span>' + esc(days[0][0].slice(5)) + "</span><span>" + esc(days[13][0].slice(5)) + "</span></div></div>" +
+      '<div class="sbox"><h3>' + esc(t.stLine) + "</h3>" + bars(top(ln, 6).map(function (p) { return [p[0], p[1], lcol(p[0])]; })) + "</div>" +
+      '<div class="sbox"><h3>' + esc(t.stSrc) + "</h3>" + bars(top(sr, 6)) + "</div>";
+  }
+
+  function renderLinks() {
+    var t = T();
+    $("flinks").innerHTML = '<a href="feed.xml" target="_blank" rel="noopener">' + esc(t.rss) + "</a>" + (LINE_ADD_URL ? '<a href="' + esc(LINE_ADD_URL) + '" target="_blank" rel="noopener noreferrer">' + esc(t.addFriend) + "</a>" : "");
   }
 
   function renderFoot() {
@@ -467,7 +588,7 @@ footer .bname { color: var(--night-fg); font-size: 18px; }
     $("updated").textContent = S.demo ? "" : t.updated + " " + (S.generated ? fDay(S.generated) + " " + fTime(S.generated) : "-") + " · " + t.total + " " + S.items.length + " " + t.items;
   }
 
-  function render() { renderStatic(); renderHero(); renderCats(); renderNews(); renderFoot(); }
+  function render() { renderStatic(); renderHero(); renderCats(); renderLines(); renderNews(); renderTimeline(); renderStats(); renderLinks(); renderFoot(); }
   function refilter() { S.shown = PAGE; renderNews(); }
 
   $("tabs").addEventListener("click", function (e) { var b = e.target.closest(".tab"); if (b) { S.cat = b.getAttribute("data-c"); refilter(); } });
@@ -475,6 +596,15 @@ footer .bname { color: var(--night-fg); font-size: 18px; }
   $("q").addEventListener("input", function (e) { S.q = e.target.value; refilter(); });
   $("from").addEventListener("change", function (e) { S.from = e.target.value; refilter(); });
   $("to").addEventListener("change", function (e) { S.to = e.target.value; refilter(); });
+  $("lsel").addEventListener("change", function (e) { S.line = e.target.value; refilter(); });
+  function toast(m) { var d = document.createElement("div"); d.className = "toast"; d.textContent = m; document.body.appendChild(d); setTimeout(function () { d.remove(); }, 2200); }
+  $("gal").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-share]"); if (!b) return;
+    var it = S.items.filter(function (x) { return String(x.id) === b.getAttribute("data-share"); })[0]; if (!it) return;
+    var url = safeUrl(it.url);
+    if (navigator.share) { navigator.share({ title: it.title, url: url }).catch(function () {}); return; }
+    window.open("https://social-plugins.line.me/lineit/share?url=" + encodeURIComponent(url), "_blank", "noopener");
+  });
   $("src").addEventListener("change", function (e) { S.src = e.target.value; refilter(); });
   $("sort").addEventListener("change", function (e) { S.sort = e.target.value; refilter(); });
   $("dropped").addEventListener("change", function (e) { S.dropped = e.target.checked; refilter(); });
