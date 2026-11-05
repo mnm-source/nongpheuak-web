@@ -289,7 +289,7 @@ footer .bname { color: var(--night-fg); font-size: 18px; }
         <select id="lsel" class="chipbtn" aria-label="สาย"></select>
         <select id="src" class="chipbtn"></select>
         <select id="sort" class="chipbtn"></select>
-        <label class="check"><input type="checkbox" id="dropped"> <span data-i="dropped"></span></label>
+        
         <span class="grow" id="count" aria-live="polite"></span>
       </div>
     </div>
@@ -422,7 +422,7 @@ footer .bname { color: var(--night-fg); font-size: 18px; }
   function loc() { return S.lang === "th" ? "th-TH" : "en-GB"; }
   function fDay(iso) { var d = new Date(iso); return isNaN(d) ? T().unk : d.toLocaleDateString(loc(), { day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Bangkok" }); }
   function fTime(iso) { var d = new Date(iso); if (isNaN(d)) return ""; return d.toLocaleTimeString(loc(), { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "Asia/Bangkok" }) + (S.lang === "th" ? " น." : ""); }
-  function isDropped(it) { return it.status === "irrelevant" || it.status === "excluded"; }
+  function isDropped(it) { return false; } // ข่าวที่คัดทิ้งถูกจัดอยู่ในหมวด "อื่นๆ" แล้ว
   function lv(it) { return isDropped(it) ? "grey" : (it.level || "grey"); }
   function related(it) {
     try { var r = typeof it.related_urls === "string" ? JSON.parse(it.related_urls || "[]") : (it.related_urls || []); return r.map(safeUrl).filter(Boolean); } catch (e) { return []; }
@@ -607,7 +607,6 @@ footer .bname { color: var(--night-fg); font-size: 18px; }
   });
   $("src").addEventListener("change", function (e) { S.src = e.target.value; refilter(); });
   $("sort").addEventListener("change", function (e) { S.sort = e.target.value; refilter(); });
-  $("dropped").addEventListener("change", function (e) { S.dropped = e.target.checked; refilter(); });
   $("more").addEventListener("click", function () { S.shown += PAGE; renderNews(); });
   document.querySelector(".row2").addEventListener("click", function (e) {
     var b = e.target.closest("[data-range]"); if (!b) return;
