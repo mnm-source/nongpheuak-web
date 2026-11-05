@@ -5,24 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
 <title>น้องเผือก ข่าวรถไฟฟ้า</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Prompt:wght@600;700&display=swap">
+<link rel="icon" href="logo.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Noto+Serif+Thai:wght@500;600;700&family=Playfair+Display:wght@600;700&display=swap">
 <style>
-/* Layout: หัวเว็บ(โลโก้ใหญ่+สลับภาษา) → Hero ข่าวล่าสุด → กล่องแนะนำน้องเผือก → กรอบข่าวหลัก (ค้นหา+รายการ)
-   Color: ม่วงเผือกเป็นสีแบรนด์ · แดง/เหลือง/เขียว/เทา เป็นสีของหมวดข่าว (ตรงกับในไลน์) ทุกหมวดมีสีพื้นอ่อน+ขอบเข้มของตัวเอง */
+/* Mood: หรู สะอาด เป็นทางการ แบบหน้า landing ของร้านอาหารระดับพรีเมียม
+   Layout: Hero มืดแบบซุ้มโค้งพร้อมภาพข่าวล่าสุด → หมวดข่าว (เหมือนหมวดเมนู) → รายการข่าวแบบแกลเลอรีการ์ดภาพ + แถบค้นหาย้อนหลัง → เกี่ยวกับน้องเผือก → ท้ายหน้า
+   Color: ม่วงเผือกเข้ม + ทองอ่อนเป็นสีเน้น · พื้นเนื้อหาโทนงาช้างอมม่วง · หมวดข่าวใช้ แดง/เหลือง/เขียว/เทา แยกกรอบชัด */
 :root {
-  --bg: #F3F1F8; --surface: #FFFFFF; --surface-2: #F0ECF7; --fg: #231F2E; --muted: #6A6479; --line: #DDD7E8;
-  --brand: #5B3F94; --brand-fg: #FFFFFF; --brand-soft: #E7DFF5;
+  --bg: #F8F5FB; --surface: #FFFFFF; --surface-2: #F1ECF7; --fg: #241C33; --muted: #6B627B; --line: #E2DAEE;
+  --brand: #5B3F94; --brand-fg: #FFFFFF; --brand-soft: #EAE2F6;
+  --gold: #B88A2E;
   --red: #C62828; --red-bg: #FDECEC; --red-bd: #EFA6A6;
   --amber: #A86200; --amber-bg: #FFF3D6; --amber-bd: #EBC15F;
   --green: #2E7D32; --green-bg: #E6F4E7; --green-bd: #96CC99;
   --grey: #5F6368; --grey-bg: #EEF0F2; --grey-bd: #BDC2C8;
-  --font-display: "Prompt", "IBM Plex Sans Thai", system-ui, sans-serif;
-  --font-body: "IBM Plex Sans Thai", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --night: #1D1430; --night-2: #2A1D45; --night-fg: #F4EEFB; --night-muted: #BBAED1; --night-gold: #E3C377;
+  --serif: "Playfair Display", "Noto Serif Thai", Georgia, "Times New Roman", serif;
+  --sans: "IBM Plex Sans Thai", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #17141F; --surface: #211D2C; --surface-2: #2A2538; --fg: #EEEAF6; --muted: #A59EB8; --line: #3A3450;
-    --brand: #B9A2F0; --brand-fg: #1B1429; --brand-soft: #34294F;
+    --bg: #16111F; --surface: #211A30; --surface-2: #2A2240; --fg: #EFE9F8; --muted: #A99FBD; --line: #3A3052;
+    --brand: #BBA5F2; --brand-fg: #1B1429; --brand-soft: #352A52; --gold: #E3C377;
     --red: #FF8A80; --red-bg: #3A1F23; --red-bd: #8A3B42;
     --amber: #FFC259; --amber-bg: #392C12; --amber-bd: #8A6A22;
     --green: #81C784; --green-bg: #1C3120; --green-bd: #3F7444;
@@ -30,158 +34,206 @@
   }
 }
 :root[data-theme="dark"] {
-  --bg: #17141F; --surface: #211D2C; --surface-2: #2A2538; --fg: #EEEAF6; --muted: #A59EB8; --line: #3A3450;
-  --brand: #B9A2F0; --brand-fg: #1B1429; --brand-soft: #34294F;
+  --bg: #16111F; --surface: #211A30; --surface-2: #2A2240; --fg: #EFE9F8; --muted: #A99FBD; --line: #3A3052;
+  --brand: #BBA5F2; --brand-fg: #1B1429; --brand-soft: #352A52; --gold: #E3C377;
   --red: #FF8A80; --red-bg: #3A1F23; --red-bd: #8A3B42;
   --amber: #FFC259; --amber-bg: #392C12; --amber-bd: #8A6A22;
   --green: #81C784; --green-bg: #1C3120; --green-bd: #3F7444;
   --grey: #B0B4BA; --grey-bg: #2A2C30; --grey-bd: #5A5E66; color-scheme: dark;
 }
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.55;
-  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
-  padding-top: max(14px, env(safe-area-inset-top, 0px)); padding-bottom: max(24px, env(safe-area-inset-bottom, 0px)); }
+html { scroll-behavior: smooth; scroll-padding-top: 12px; }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--sans); font-size: 15.5px; line-height: 1.6; }
 button, input, select { font: inherit; color: inherit; }
-:focus-visible { outline: 3px solid var(--brand); outline-offset: 2px; }
-.shell { max-width: 980px; margin: 0 auto; display: grid; gap: 16px; }
+img { max-width: 100%; }
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+.wrap { width: 100%; max-width: 1120px; margin: 0 auto;
+  padding-left: max(18px, env(safe-area-inset-left, 0px)); padding-right: max(18px, env(safe-area-inset-right, 0px)); }
+.eyebrow { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: var(--gold); display: flex; align-items: center; gap: 12px; }
+.eyebrow::before { content: ""; width: 36px; height: 1.5px; background: currentColor; }
+h1, h2, h3 { font-family: var(--serif); }
+.sec { padding-block: clamp(44px, 8vw, 84px); }
+.sec-head { text-align: center; display: grid; gap: 8px; justify-items: center; margin-bottom: 30px; }
+.sec-head h2 { margin: 0; font-size: clamp(26px, 5vw, 38px); line-height: 1.25; }
+.sec-head p { margin: 0; color: var(--muted); max-width: 56ch; }
+.orn { display: flex; align-items: center; gap: 10px; color: var(--gold); font-size: 13px; }
+.orn::before, .orn::after { content: ""; width: 54px; height: 1px; background: currentColor; opacity: .7; }
 
-/* ---------- หัวเว็บ ---------- */
-.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-.brand { display: flex; align-items: center; gap: 14px; min-width: 0; }
-.logo { width: 72px; height: 72px; flex: none; border-radius: 20px; background: var(--brand-soft); display: grid; place-items: center; overflow: hidden; }
+/* ---------- Hero ---------- */
+.hero { background: radial-gradient(1200px 520px at 80% 10%, var(--night-2), var(--night)); color: var(--night-fg);
+  padding-top: max(14px, env(safe-area-inset-top, 0px)); position: relative; overflow: hidden; }
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 10px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; min-width: 0; }
+.logo { width: 58px; height: 58px; border-radius: 50%; flex: none; background: #CFC4F5; display: grid; place-items: center; overflow: hidden; }
 .logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.logo svg { width: 80%; height: 80%; }
-.name { font-family: var(--font-display); font-weight: 700; font-size: clamp(24px, 6vw, 32px); line-height: 1.15; }
-.sub { color: var(--muted); font-size: 13.5px; line-height: 1.35; }
+.logo svg { width: 82%; height: 82%; }
+.bname { font-family: var(--serif); font-weight: 700; font-size: 22px; line-height: 1.1; }
+.bsub { font-size: 12.5px; color: var(--night-muted); line-height: 1.3; }
+.links { display: flex; gap: 22px; align-items: center; }
+.links a { color: var(--night-fg); text-decoration: none; font-size: 14.5px; opacity: .88; }
+.links a:hover { opacity: 1; color: var(--night-gold); }
 .tools { display: flex; gap: 8px; align-items: center; }
-.seg { display: inline-flex; border: 1.5px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--surface); }
-.seg button { border: 0; background: transparent; padding: 6px 12px; cursor: pointer; min-height: 38px; font-weight: 600; font-size: 14px; }
-.seg button[aria-pressed="true"] { background: var(--brand); color: var(--brand-fg); }
-.btn { border: 1.5px solid var(--line); background: var(--surface); border-radius: 10px; padding: 6px 12px; cursor: pointer; min-height: 38px; font-size: 14px; }
-.btn:hover { border-color: var(--brand); }
+.seg { display: inline-flex; border: 1.5px solid rgba(255,255,255,.28); border-radius: 999px; overflow: hidden; }
+.seg button { border: 0; background: transparent; color: var(--night-fg); padding: 5px 13px; cursor: pointer; min-height: 36px; font-weight: 600; font-size: 13.5px; }
+.seg button[aria-pressed="true"] { background: var(--night-gold); color: #2B1E0A; }
+.pillbtn { border: 1.5px solid rgba(255,255,255,.28); background: transparent; color: var(--night-fg); border-radius: 999px; padding: 5px 14px; cursor: pointer; min-height: 36px; font-size: 13.5px; }
+.pillbtn:hover { border-color: var(--night-gold); }
+@media (max-width: 820px) { .links { display: none; } }
 
-/* ---------- Hero: ข่าวล่าสุด ---------- */
-.hero { border-radius: 20px; overflow: hidden; border: 2px solid var(--hero-bd, var(--line)); background: var(--hero-bg, var(--surface)); display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); min-height: 260px; }
-.hero.red { --hero-bd: var(--red-bd); --hero-bg: var(--red-bg); --hero-c: var(--red); }
-.hero.yellow { --hero-bd: var(--amber-bd); --hero-bg: var(--amber-bg); --hero-c: var(--amber); }
-.hero.green { --hero-bd: var(--green-bd); --hero-bg: var(--green-bg); --hero-c: var(--green); }
-.hero.grey { --hero-bd: var(--grey-bd); --hero-bg: var(--grey-bg); --hero-c: var(--grey); }
-.hero-pic { position: relative; background: var(--hero-c, var(--brand)); min-height: 200px; display: flex; flex-direction: column; color: #fff; overflow: hidden; }
-.hero-pic img.photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.hero-pic .art { width: 52%; max-width: 170px; opacity: .92; margin: auto; padding: 18px 0 8px; }
-.hero-pic .art svg { width: 100%; height: auto; display: block; }
-.hero-pic .cap { position: relative; margin-top: auto; padding: 10px 14px; font-size: 12.5px; background: rgba(0,0,0,.45); color: #fff; }
-.hero-pic img.photo + .cap { position: absolute; left: 0; right: 0; bottom: 0; background: linear-gradient(transparent, rgba(0,0,0,.7)); }
-.hero-body { padding: 22px; display: flex; flex-direction: column; gap: 10px; justify-content: center; min-width: 0; }
-.kicker { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font-size: 13px; font-weight: 600; }
-.pill { border-radius: 999px; padding: 2px 12px; background: var(--hero-c, var(--brand)); color: #fff; }
-:root[data-theme="dark"] .pill, :root:not([data-theme="light"]) .pill { color: #1B1429; }
-@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .pill { color: #fff; } }
-:root[data-theme="light"] .pill { color: #fff; }
-.hero h2 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: clamp(20px, 4.4vw, 28px); line-height: 1.3; overflow-wrap: anywhere; text-wrap: balance; }
-.hero .cap2 { color: var(--muted); font-size: 14px; }
-.hero .go { align-self: flex-start; text-decoration: none; font-weight: 600; color: var(--brand-fg); background: var(--brand); border-radius: 10px; padding: 8px 16px; min-height: 40px; display: inline-flex; align-items: center; }
-.hero .upd { background: var(--surface); border-radius: 10px; padding: 6px 10px; font-size: 13.5px; }
-@media (max-width: 640px) { .hero { grid-template-columns: 1fr; } .hero-pic { min-height: 170px; } .hero-pic .art { max-width: 110px; padding-top: 14px; } .hero-body { padding: 16px; } }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(20px, 5vw, 56px); align-items: center; padding-block: clamp(26px, 5vw, 56px) 30px; }
+.hero .eyebrow { color: var(--night-gold); }
+.hero h1 { margin: 14px 0 12px; font-size: clamp(27px, 5.2vw, 50px); line-height: 1.22; font-weight: 700; overflow-wrap: anywhere; text-wrap: balance; }
+.hcap { color: var(--night-muted); font-size: 14.5px; display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.hcap b { color: var(--night-fg); font-weight: 600; }
+.hupd { margin-top: 12px; background: rgba(255,255,255,.08); border-radius: 12px; padding: 8px 12px; font-size: 14px; max-width: 60ch; }
+.hbtns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
+.btn-gold { background: var(--night-gold); color: #2B1E0A; border-radius: 999px; padding: 11px 24px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; min-height: 46px; border: 0; cursor: pointer; }
+.btn-ghost { border: 1.5px solid rgba(255,255,255,.4); color: var(--night-fg); border-radius: 999px; padding: 10px 22px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; min-height: 46px; }
+.btn-ghost:hover { border-color: var(--night-gold); color: var(--night-gold); }
+.arch { position: relative; width: 100%; aspect-ratio: 4 / 4.6; max-height: 520px; margin-inline: auto; border-radius: 999px 999px 28px 28px; overflow: hidden;
+  background: linear-gradient(160deg, #CFC4F5, #A992E6); border: 3px solid rgba(227,195,119,.7); box-shadow: 0 24px 60px rgba(0,0,0,.45); display: grid; place-items: center; }
+.arch img.photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.arch .mascot { width: 74%; max-width: 330px; aspect-ratio: 1; display: block; }
+.arch .mascot svg { width: 100%; height: 100%; }
+.arch .mascot img { width: 100%; height: 100%; object-fit: contain; }
+.arch .tag { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); background: rgba(20,12,35,.78); color: #fff; border-radius: 999px; padding: 4px 14px; font-size: 12.5px; white-space: nowrap; max-width: 92%; overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 820px) { .hero-grid { grid-template-columns: 1fr; } .arch { max-width: 340px; order: -1; aspect-ratio: 4 / 3.6; border-radius: 28px; } .arch .mascot { width: 58%; } }
 
-/* ---------- กล่องแนะนำ ---------- */
-.about { background: var(--brand-soft); border-radius: 16px; padding: 16px 18px; display: grid; gap: 8px; }
-.about h3 { margin: 0; font-family: var(--font-display); font-size: 17px; color: var(--brand); }
-.about p { margin: 0; }
-.facts { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 2px; }
-.facts span { background: var(--surface); border-radius: 999px; padding: 2px 12px; font-size: 13px; }
+.next { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; padding-bottom: clamp(24px, 4vw, 40px); }
+.nx { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14); border-radius: 16px; padding: 10px; text-decoration: none; color: inherit; }
+.nx:hover { border-color: var(--night-gold); }
+.nx .th { width: 76px; height: 76px; border-radius: 12px; overflow: hidden; background: var(--night-2); position: relative; }
+.nx .th img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.nx b { font-size: 14px; font-weight: 600; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+.nx small { color: var(--night-muted); font-size: 12px; display: block; margin-top: 2px; }
+@media (max-width: 820px) { .next { grid-template-columns: 1fr; } }
 
-/* ---------- กรอบข่าวหลัก ---------- */
-.board { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; display: flex; flex-direction: column; overflow: hidden; height: min(80vh, 820px); min-height: 520px; }
-.bar { padding: 12px; border-bottom: 1px solid var(--line); display: grid; gap: 10px; }
+/* ---------- หมวดข่าว ---------- */
+.cats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.cc { text-align: left; cursor: pointer; border: 2px solid var(--cb); background: var(--cg); border-radius: 22px; padding: 20px 18px; display: grid; gap: 8px; align-content: start; min-height: 190px; }
+.cc:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(40,20,80,.14); }
+.cc .num { font-family: var(--serif); font-size: 46px; font-weight: 700; line-height: 1; color: var(--cc); font-variant-numeric: tabular-nums; }
+.cc .nm { font-weight: 700; font-size: 16.5px; }
+.cc .ds { color: var(--muted); font-size: 13.5px; line-height: 1.45; }
+.cc .lt { font-size: 13px; margin-top: auto; border-top: 1px dashed var(--cb); padding-top: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+.cc.red { --cb: var(--red-bd); --cg: var(--red-bg); --cc: var(--red); } .cc.yellow { --cb: var(--amber-bd); --cg: var(--amber-bg); --cc: var(--amber); }
+.cc.green { --cb: var(--green-bd); --cg: var(--green-bg); --cc: var(--green); } .cc.grey { --cb: var(--grey-bd); --cg: var(--grey-bg); --cc: var(--grey); }
+@media (max-width: 900px) { .cats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .cats { grid-template-columns: 1fr; } .cc { min-height: 0; } }
+
+/* ---------- ค้นหา + รายการข่าว ---------- */
+.finder { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 18px; display: grid; gap: 12px; box-shadow: 0 8px 30px rgba(60,30,110,.07); }
 .tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px; }
-.tab { border: 2px solid var(--tb, var(--line)); background: var(--tbg, transparent); color: var(--fg); border-radius: 12px; padding: 6px 12px; cursor: pointer; white-space: nowrap; font-size: 14px; display: inline-flex; gap: 8px; align-items: center; min-height: 40px; font-weight: 500; }
+.tab { border: 2px solid var(--tb); background: var(--tbg); color: var(--fg); border-radius: 999px; padding: 6px 14px; cursor: pointer; white-space: nowrap; font-size: 14px; display: inline-flex; gap: 8px; align-items: center; min-height: 40px; font-weight: 500; }
 .tab .n { font-variant-numeric: tabular-nums; font-weight: 700; }
-.tab[data-c="all"] { --tb: var(--brand); --tbg: var(--brand-soft); }
-.tab[data-c="red"] { --tb: var(--red-bd); --tbg: var(--red-bg); }
-.tab[data-c="yellow"] { --tb: var(--amber-bd); --tbg: var(--amber-bg); }
-.tab[data-c="green"] { --tb: var(--green-bd); --tbg: var(--green-bg); }
+.tab[data-c="all"] { --tb: var(--brand); --tbg: var(--brand-soft); } .tab[data-c="red"] { --tb: var(--red-bd); --tbg: var(--red-bg); }
+.tab[data-c="yellow"] { --tb: var(--amber-bd); --tbg: var(--amber-bg); } .tab[data-c="green"] { --tb: var(--green-bd); --tbg: var(--green-bg); }
 .tab[data-c="grey"] { --tb: var(--grey-bd); --tbg: var(--grey-bg); }
+.tab[aria-pressed="true"] { color: #fff; }
 .tab[aria-pressed="true"][data-c="all"] { background: var(--brand); border-color: var(--brand); color: var(--brand-fg); }
-.tab[aria-pressed="true"][data-c="red"] { background: var(--red); border-color: var(--red); }
-.tab[aria-pressed="true"][data-c="yellow"] { background: var(--amber); border-color: var(--amber); }
-.tab[aria-pressed="true"][data-c="green"] { background: var(--green); border-color: var(--green); }
-.tab[aria-pressed="true"][data-c="grey"] { background: var(--grey); border-color: var(--grey); }
-.tab[aria-pressed="true"]:not([data-c="all"]) { color: #fff; }
-:root[data-theme="dark"] .tab[aria-pressed="true"], :root:not([data-theme="light"]) .tab[aria-pressed="true"] { color: #1B1429 !important; }
-@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .tab[aria-pressed="true"] { color: #fff !important; } }
-:root[data-theme="light"] .tab[aria-pressed="true"] { color: #fff !important; }
-.dot { width: 10px; height: 10px; border-radius: 50%; flex: none; display: inline-block; }
-.d-red { background: var(--red); } .d-yellow { background: var(--amber); } .d-green { background: var(--green); } .d-grey { background: var(--grey); } .d-all { background: var(--brand); }
-.tab[aria-pressed="true"] .dot { background: currentColor; }
-
-.search { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr); gap: 8px; }
-.search label { display: grid; gap: 2px; font-size: 12px; color: var(--muted); min-width: 0; }
-.search input { border: 1px solid var(--line); background: var(--surface-2); border-radius: 10px; padding: 7px 10px; min-height: 42px; width: 100%; max-width: 100%; min-width: 0; display: block; }
-.search input[type="date"] { -webkit-appearance: none; appearance: none; height: 42px; line-height: 1.2; }
+.tab[aria-pressed="true"][data-c="red"] { background: var(--red); border-color: var(--red); } .tab[aria-pressed="true"][data-c="yellow"] { background: var(--amber); border-color: var(--amber); }
+.tab[aria-pressed="true"][data-c="green"] { background: var(--green); border-color: var(--green); } .tab[aria-pressed="true"][data-c="grey"] { background: var(--grey); border-color: var(--grey); }
+:root[data-theme="dark"] .tab[aria-pressed="true"]:not([data-c="all"]) { color: #1B1429; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tab[aria-pressed="true"]:not([data-c="all"]) { color: #1B1429; } }
+.dot { width: 10px; height: 10px; border-radius: 50%; flex: none; display: inline-block; background: currentColor; }
+.d-red { color: var(--red); } .d-yellow { color: var(--amber); } .d-green { color: var(--green); } .d-grey { color: var(--grey); } .d-all { color: var(--brand); }
+.tab[aria-pressed="true"] .dot { color: currentColor; }
+.search { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
+.search label { display: grid; gap: 3px; font-size: 12.5px; color: var(--muted); min-width: 0; }
+.search input { border: 1px solid var(--line); background: var(--surface-2); border-radius: 12px; padding: 8px 12px; min-height: 46px; width: 100%; max-width: 100%; min-width: 0; display: block; }
+.search input[type="date"] { -webkit-appearance: none; appearance: none; height: 46px; line-height: 1.2; }
 .search input[type="date"]::-webkit-date-and-time-value { text-align: left; min-height: 1.2em; }
 @media (max-width: 640px) { .search { grid-template-columns: minmax(0, 1fr); } }
 .row2 { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
-.chipbtn { border: 1px solid var(--line); background: transparent; border-radius: 8px; padding: 3px 10px; cursor: pointer; font-size: 13px; min-height: 32px; max-width: 100%; }
+.chipbtn { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 4px 14px; cursor: pointer; font-size: 13.5px; min-height: 34px; max-width: 100%; }
 .chipbtn:hover { border-color: var(--brand); }
-.row2 .grow { margin-left: auto; font-variant-numeric: tabular-nums; }
+.row2 .grow { margin-left: auto; font-variant-numeric: tabular-nums; font-weight: 600; color: var(--fg); }
 .check { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
 
-.feed { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 0 12px 12px; display: block; }
-.day { position: sticky; top: 0; background: var(--surface); color: var(--muted); font-size: 12.5px; font-weight: 700; padding: 10px 2px 6px; z-index: 1; }
-.item { border: 2px solid var(--ib); background: var(--ibg); border-radius: 14px; padding: 12px 14px; margin-bottom: 10px; display: grid; gap: 4px; }
-.item.red { --ib: var(--red-bd); --ibg: var(--red-bg); --ic: var(--red); }
-.item.yellow { --ib: var(--amber-bd); --ibg: var(--amber-bg); --ic: var(--amber); }
-.item.green { --ib: var(--green-bd); --ibg: var(--green-bg); --ic: var(--green); }
-.item.grey { --ib: var(--grey-bd); --ibg: var(--grey-bg); --ic: var(--grey); }
-.lvl { font-size: 12.5px; font-weight: 700; color: var(--ic); display: flex; align-items: center; gap: 6px; }
-.item h3 { margin: 0; font-size: 16px; font-weight: 600; line-height: 1.45; overflow-wrap: anywhere; }
-.item h3 a { text-decoration: none; }
-.item h3 a:hover { text-decoration: underline; color: var(--brand); }
-.item .meta { font-size: 12.5px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 2px 10px; }
-.item p { margin: 2px 0 0; font-size: 14px; color: var(--muted); overflow-wrap: anywhere; }
-.upd2 { margin-top: 4px; background: var(--surface); border-radius: 8px; padding: 5px 10px; font-size: 13.5px; }
+.gal { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 24px; }
+@media (max-width: 920px) { .gal { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 580px) { .gal { grid-template-columns: minmax(0, 1fr); } }
+.card { border: 2px solid var(--ib); background: var(--ibg); border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; min-width: 0; }
+.card.red { --ib: var(--red-bd); --ibg: var(--red-bg); --ic: var(--red); } .card.yellow { --ib: var(--amber-bd); --ibg: var(--amber-bg); --ic: var(--amber); }
+.card.green { --ib: var(--green-bd); --ibg: var(--green-bg); --ic: var(--green); } .card.grey { --ib: var(--grey-bd); --ibg: var(--grey-bg); --ic: var(--grey); }
+.card.dropped { border-style: dashed; opacity: .78; }
+.pic { position: relative; aspect-ratio: 16 / 10; background: var(--surface-2); overflow: hidden; display: grid; place-items: center; }
+.pic img.photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.pic .ph { width: 38%; max-width: 120px; color: var(--ic); opacity: .55; } .pic .ph svg { width: 100%; height: auto; display: block; }
+.pic .lvl { position: absolute; left: 10px; top: 10px; background: var(--ic); color: #fff; border-radius: 999px; padding: 2px 12px; font-size: 12.5px; font-weight: 700; max-width: calc(100% - 20px); }
+:root[data-theme="dark"] .pic .lvl { color: #1B1429; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pic .lvl { color: #1B1429; } }
+.cbody { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.card h3 { margin: 0; font-size: 17.5px; line-height: 1.42; font-weight: 700; overflow-wrap: anywhere; }
+.card h3 a { text-decoration: none; color: inherit; } .card h3 a:hover { text-decoration: underline; color: var(--brand); }
+.cmeta { font-size: 12.5px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 2px 10px; margin-top: auto; }
+.cmeta b { color: var(--fg); font-weight: 600; }
+.card p { margin: 0; font-size: 14px; color: var(--muted); overflow-wrap: anywhere; }
+.upd2 { background: var(--surface); border-radius: 10px; padding: 6px 10px; font-size: 13.5px; }
 .upd2 b { color: var(--brand); }
-.rel { font-size: 12.5px; color: var(--muted); }
-.rel a, .item .open { color: var(--brand); font-weight: 600; }
-.item.dropped { opacity: .72; border-style: dashed; }
-.empty { padding: 40px 18px; text-align: center; color: var(--muted); }
-.empty b { display: block; color: var(--fg); font-size: 16px; margin-bottom: 4px; }
-.foot { font-size: 12.5px; color: var(--muted); padding: 8px 14px; border-top: 1px solid var(--line); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.rel { font-size: 12.5px; color: var(--muted); } .rel a, .read { color: var(--brand); font-weight: 600; }
+.read { text-decoration: none; font-size: 14px; } .read:hover { text-decoration: underline; }
+.more { display: block; margin: 26px auto 0; }
+.empty { grid-column: 1 / -1; text-align: center; color: var(--muted); padding: 40px 16px; border: 1.5px dashed var(--line); border-radius: 20px; }
+.empty b { display: block; color: var(--fg); font-size: 17px; margin-bottom: 4px; }
+.stat { text-align: center; color: var(--muted); font-size: 13px; margin-top: 14px; }
 .badge { background: var(--amber-bg); color: var(--amber); border-radius: 999px; padding: 1px 10px; font-weight: 600; font-size: 12px; }
-.note { font-size: 12.5px; color: var(--muted); text-align: center; }
-@media (max-width: 640px) { .board { height: auto; min-height: 0; } .feed { overflow: visible; flex: none; } .day { top: 0; position: static; } }
-@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+
+/* ---------- เกี่ยวกับ ---------- */
+.about { background: var(--surface-2); }
+.about-grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 6fr); gap: clamp(24px, 5vw, 60px); align-items: center; }
+.about .face { aspect-ratio: 1; max-width: 380px; width: 100%; margin-inline: auto; border-radius: 50%; background: #CFC4F5; border: 3px solid var(--gold); overflow: hidden; display: grid; place-items: center; }
+.about .face img { width: 100%; height: 100%; object-fit: cover; display: block; } .about .face svg { width: 82%; height: 82%; }
+.about h2 { margin: 10px 0 12px; font-size: clamp(26px, 5vw, 38px); line-height: 1.25; }
+.about p { margin: 0 0 18px; color: var(--muted); font-size: 16px; max-width: 58ch; }
+.feats { display: grid; gap: 12px; }
+.feat { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 14px; align-items: start; }
+.feat i { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--gold); display: grid; place-items: center; color: var(--gold); font-style: normal; font-family: var(--serif); font-weight: 700; }
+.feat b { display: block; } .feat span { color: var(--muted); font-size: 14px; }
+@media (max-width: 760px) { .about-grid { grid-template-columns: 1fr; } .about .face { max-width: 260px; } }
+
+footer { background: var(--night); color: var(--night-muted); padding-block: 34px max(30px, env(safe-area-inset-bottom, 0px)); font-size: 13.5px; }
+.fgrid { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: center; }
+footer .bname { color: var(--night-fg); font-size: 18px; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; } }
 </style>
 </head>
 <body>
-<div class="shell">
-  <header class="top">
-    <div class="brand">
-      <div class="logo" id="logo">
-        <img src="logo.png" alt="" id="logoimg">
+
+<header class="hero">
+  <div class="wrap">
+    <nav class="nav">
+      <a class="brand" href="#top" id="top">
+        <span class="logo" id="logo"><img src="logo.png" alt="น้องเผือก" id="logoimg"></span>
+        <span><span class="bname" data-i="name"></span><span class="bsub" style="display:block" data-i="sub"></span></span>
+      </a>
+      <div class="links">
+        <a href="#categories" data-i="navCats"></a><a href="#news" data-i="navNews"></a><a href="#about" data-i="navAbout"></a>
       </div>
-      <div><div class="name" data-i="name">น้องเผือก</div><div class="sub" data-i="sub"></div></div>
-    </div>
-    <div class="tools">
-      <div class="seg" role="group" aria-label="Language / ภาษา">
-        <button type="button" data-lang="th" aria-pressed="true">TH</button>
-        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      <div class="tools">
+        <div class="seg" role="group" aria-label="Language / ภาษา">
+          <button type="button" data-lang="th" aria-pressed="true">TH</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <button class="pillbtn" id="theme" type="button" data-i="theme"></button>
       </div>
-      <button class="btn" id="theme" type="button" data-i="theme"></button>
-    </div>
-  </header>
+    </nav>
+    <div id="hero"></div>
+    <div class="next" id="next"></div>
+  </div>
+</header>
 
-  <section id="hero" aria-label="Latest news"></section>
+<section class="sec" id="categories">
+  <div class="wrap">
+    <div class="sec-head"><div class="orn" data-i="catsKicker"></div><h2 data-i="catsTitle"></h2><p data-i="catsLead"></p></div>
+    <div class="cats" id="cats"></div>
+  </div>
+</section>
 
-  <section class="about" aria-labelledby="abt">
-    <h3 id="abt" data-i="aboutTitle"></h3>
-    <p data-i="aboutBody"></p>
-    <div class="facts"><span data-i="f1"></span><span data-i="f2"></span><span data-i="f3"></span></div>
-  </section>
-
-  <section class="board" aria-label="News">
-    <div class="bar">
+<section class="sec" id="news" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head"><div class="orn" data-i="newsKicker"></div><h2 data-i="newsTitle"></h2><p data-i="newsLead"></p></div>
+    <div class="finder">
       <div class="tabs" id="tabs" role="group"></div>
       <div class="search">
         <label for="q"><span data-i="search"></span><input id="q" type="search" data-iph="ph"></label>
@@ -199,52 +251,89 @@ button, input, select { font: inherit; color: inherit; }
         <span class="grow" id="count" aria-live="polite"></span>
       </div>
     </div>
-    <div class="feed" id="feed"></div>
-    <div class="foot" id="foot"></div>
-  </section>
-  <p class="note" data-i="note"></p>
-</div>
+    <div class="gal" id="gal"></div>
+    <button class="chipbtn more" id="more" type="button" hidden></button>
+    <div class="stat" id="foot"></div>
+  </div>
+</section>
+
+<section class="sec about" id="about">
+  <div class="wrap about-grid">
+    <div class="face" id="face"><img src="logo.png" alt="" id="faceimg"></div>
+    <div>
+      <div class="eyebrow" data-i="aboutKicker"></div>
+      <h2 data-i="aboutTitle"></h2>
+      <p data-i="aboutBody"></p>
+      <div class="feats">
+        <div class="feat"><i>1</i><div><b data-i="f1t"></b><span data-i="f1"></span></div></div>
+        <div class="feat"><i>2</i><div><b data-i="f2t"></b><span data-i="f2"></span></div></div>
+        <div class="feat"><i>3</i><div><b data-i="f3t"></b><span data-i="f3"></span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap fgrid">
+    <div><span class="bname" data-i="name"></span><div data-i="foot1"></div></div>
+    <div id="updated"></div>
+  </div>
+</footer>
 
 <script>
 (function () {
   var TXT = {
     th: {
       name: "น้องเผือก", sub: "ข่าวรถไฟฟ้า MRT แยกตามหมวด", theme: "สว่าง/มืด",
-      aboutTitle: "น้องเผือกคือใคร?",
-      aboutBody: "น้องเผือกคือผู้ช่วย AI ที่อ่านข่าวรถไฟฟ้า MRT ให้ทุกวัน คัดจากสำนักข่าวที่น่าเชื่อถือ จัดเป็นหมวดตามความสำคัญ แล้วสรุปส่งเข้า LINE ตอน 08:00",
-      f1: "มีลิงก์ต้นฉบับทุกข่าว", f2: "ไม่รายงานข่าวซ้ำ", f3: "แดง = ด่วน เด้งเตือนใน LINE",
-      latest: "ข่าวล่าสุด", source: "ที่มา", progress: "ความคืบหน้า", open: "อ่านข่าวต้นฉบับ", more: "แหล่งเพิ่มเติม",
+      navCats: "หมวดข่าว", navNews: "ข่าวทั้งหมด", navAbout: "เกี่ยวกับน้องเผือก",
+      latest: "ข่าวล่าสุด", source: "ที่มา", progress: "ความคืบหน้า", open: "อ่านข่าวต้นฉบับ", seeAll: "ดูข่าวทั้งหมด", more: "แหล่งเพิ่มเติม",
+      catsKicker: "หมวดข่าว", catsTitle: "เลือกอ่านตามหมวด", catsLead: "ทุกข่าวถูกจัดเป็น 4 หมวด แต่ละหมวดมีสีของตัวเองเหมือนที่ส่งในไลน์",
+      newsKicker: "คลังข่าว", newsTitle: "ข่าวทั้งหมดและค้นหาย้อนหลัง", newsLead: "ค้นหาด้วยคำสำคัญ ช่วงวันที่ หรือแหล่งข่าว",
       search: "ค้นหา", from: "ตั้งแต่วันที่", to: "ถึงวันที่", ph: "เช่น สายสีส้ม, ค่าโดยสาร, ตกราง",
       today: "วันนี้", d7: "7 วัน", d30: "30 วัน", all: "ทั้งหมด", allSrc: "ทุกแหล่งข่าว",
-      newest: "ใหม่ → เก่า", oldest: "เก่า → ใหม่", dropped: "รวมข่าวที่คัดทิ้ง", dropTag: "คัดทิ้ง",
+      newest: "ใหม่ → เก่า", oldest: "เก่า → ใหม่", dropped: "รวมข่าวที่คัดทิ้ง", dropTag: "คัดทิ้ง", showMore: "แสดงเพิ่ม",
       found: function (n) { return "พบ " + n + " รายการ"; },
       cats: { all: "ทุกหมวด", red: "อุบัติเหตุทั่วโลก", yellow: "ก่อสร้าง", green: "ประชาสัมพันธ์", grey: "อื่นๆ" },
       lvl: { red: "ข่าวอุบัติเหตุทั่วโลก", yellow: "ความคืบหน้าโครงการก่อสร้าง", green: "ประชาสัมพันธ์รถไฟฟ้า", grey: "อื่นๆ" },
+      desc: { red: "อุบัติเหตุรถไฟและรถไฟฟ้าที่เกิดขึ้นทั่วโลก (ส่งเตือนเด้งใน LINE)", yellow: "โครงการที่มีแผนและอยู่ระหว่างก่อสร้าง เช่น สายสีส้ม", green: "ข่าวประชาสัมพันธ์รถไฟฟ้าที่เปิดให้บริการอยู่", grey: "เรื่องที่เกี่ยวข้องแต่ไม่เข้า 3 หมวดหลัก" },
+      noNews: "ยังไม่มีข่าวในหมวดนี้",
       empty1: "ไม่พบข่าวตามเงื่อนไขที่เลือก", empty2: "ลองเปลี่ยนคำค้น ขยายช่วงวันที่ หรือกด “ทั้งหมด”",
       noHero: "ยังไม่มีข่าว", demo: "ข้อมูลตัวอย่าง", demoMsg: "ยังโหลดข่าวจริงไม่ได้ จึงแสดงตัวอย่าง (ระบบจะลองใหม่อัตโนมัติ)",
-      updated: "อัปเดตข้อมูลล่าสุด", total: "ข่าวทั้งหมดในไฟล์", items: "รายการ", nolink: "ข้อมูลตัวอย่าง ไม่มีลิงก์", unk: "ไม่ทราบวันที่",
-      station: "สถานี", note: "หัวข้อข่าวแสดงตามภาษาของต้นฉบับ (ภาษาไทย)"
+      updated: "อัปเดตข้อมูลล่าสุด", total: "ข่าวทั้งหมด", items: "รายการ", nolink: "ข้อมูลตัวอย่าง ไม่มีลิงก์", unk: "ไม่ทราบวันที่", station: "สถานี",
+      aboutKicker: "รู้จักน้องเผือก", aboutTitle: "น้องเผือกคือใคร?",
+      aboutBody: "น้องเผือกคือผู้ช่วย AI ที่อ่านข่าวรถไฟฟ้า MRT ให้คุณทุกวัน คัดจากสำนักข่าวที่น่าเชื่อถือ จัดเป็นหมวดตามความสำคัญ แล้วสรุปส่งเข้า LINE ตอน 08:00",
+      f1t: "มีลิงก์ต้นฉบับทุกข่าว", f1: "ไม่มีข่าวที่ AI สร้างขึ้นเอง ตรวจสอบที่มาได้เสมอ",
+      f2t: "ไม่รายงานข่าวซ้ำ", f2: "เรื่องเดียวกันจากหลายสำนักรวมเป็นหนึ่ง และแจ้งซ้ำเมื่อมีความคืบหน้าเท่านั้น",
+      f3t: "สีบอกความสำคัญ", f3: "แดง = ด่วน เด้งเตือนใน LINE · เหลือง เขียว เทา = ส่งแบบเงียบ",
+      foot1: "หัวข้อข่าวแสดงตามภาษาของต้นฉบับ (ภาษาไทย)"
     },
     en: {
       name: "Nong Pheuak", sub: "Bangkok MRT news, sorted by category", theme: "Light/Dark",
-      aboutTitle: "Who is Nong Pheuak?",
-      aboutBody: "Nong Pheuak is an AI assistant that reads Bangkok MRT news every day. It picks stories from trusted outlets, sorts them by importance and sends a summary to LINE at 08:00.",
-      f1: "Every story links to its source", f2: "No repeated stories", f3: "Red = urgent, pushes an alert on LINE",
-      latest: "Latest", source: "Source", progress: "Update", open: "Read original", more: "More sources",
+      navCats: "Categories", navNews: "All news", navAbout: "About",
+      latest: "Latest", source: "Source", progress: "Update", open: "Read original", seeAll: "Browse all news", more: "More sources",
+      catsKicker: "Categories", catsTitle: "Read by category", catsLead: "Every story is filed under one of four categories, each with its own colour, just like in LINE.",
+      newsKicker: "The archive", newsTitle: "All news and past-news search", newsLead: "Search by keyword, date range or source.",
       search: "Search", from: "From date", to: "To date", ph: "e.g. Orange Line, fares, derailment",
       today: "Today", d7: "7 days", d30: "30 days", all: "All time", allSrc: "All sources",
-      newest: "Newest first", oldest: "Oldest first", dropped: "Include discarded", dropTag: "Discarded",
+      newest: "Newest first", oldest: "Oldest first", dropped: "Include discarded", dropTag: "Discarded", showMore: "Show more",
       found: function (n) { return n + (n === 1 ? " result" : " results"); },
       cats: { all: "All", red: "Accidents worldwide", yellow: "Construction", green: "Service news", grey: "Other" },
       lvl: { red: "Rail accidents worldwide", yellow: "Construction progress", green: "Service announcements", grey: "Other" },
+      desc: { red: "Train and metro accidents anywhere in the world (pushes an alert on LINE)", yellow: "Planned and under-construction lines, such as the Orange Line", green: "Announcements about MRT lines already in service", grey: "Related stories that fit none of the three main categories" },
+      noNews: "No stories in this category yet",
       empty1: "No news matches your filters", empty2: "Try a different keyword, a wider date range, or “All time”",
       noHero: "No news yet", demo: "Sample data", demoMsg: "Live news could not be loaded, showing samples (it will retry automatically)",
-      updated: "Last updated", total: "Stories in file", items: "", nolink: "Sample, no link", unk: "Unknown date",
-      station: "Station ", note: "Headlines appear in their original language (Thai)"
+      updated: "Last updated", total: "Stories", items: "", nolink: "Sample, no link", unk: "Unknown date", station: "Station ",
+      aboutKicker: "Meet Nong Pheuak", aboutTitle: "Who is Nong Pheuak?",
+      aboutBody: "Nong Pheuak is an AI assistant that reads Bangkok MRT news for you every day. It picks stories from trusted outlets, sorts them by importance and sends a summary to LINE at 08:00.",
+      f1t: "Every story links to its source", f1: "Nothing is written by the AI. You can always check where it came from.",
+      f2t: "No repeated stories", f2: "The same story from several outlets is merged, and only repeated when there is progress.",
+      f3t: "Colour shows priority", f3: "Red = urgent, pushes an alert on LINE · yellow, green, grey = silent",
+      foot1: "Headlines appear in their original language (Thai)"
     }
   };
-  var CATS = ["all", "red", "yellow", "green", "grey"];
-  var STORE = "nongpheuak-news-v1", LSTORE = "nongpheuak-lang";
+  var CATS = ["all", "red", "yellow", "green", "grey"], MAIN = ["red", "yellow", "green", "grey"];
+  var STORE = "nongpheuak-news-v1", LSTORE = "nongpheuak-lang", PAGE = 12;
 
   function ago(h) { return new Date(Date.now() - h * 3600e3).toISOString(); }
   var DEMO = [
@@ -255,10 +344,9 @@ button, input, select { font: inherit; color: inherit; }
     { id: 5, level: "grey", status: "reported", title: "รฟม. รวมพลังผู้บริหาร-พนักงาน จัดกิจกรรมจิตอาสาพัฒนาสวนสุขภาพ", source_name: "BiztalkNEWS", published_at: ago(30) }
   ];
 
-  var S = { items: DEMO, demo: true, generated: null, cat: "all", q: "", from: "", to: "", src: "", sort: "desc", dropped: false, lang: "th" };
+  var S = { items: DEMO, demo: true, generated: null, cat: "all", q: "", from: "", to: "", src: "", sort: "desc", dropped: false, lang: "th", shown: PAGE };
   var $ = function (id) { return document.getElementById(id); };
   var T = function () { return TXT[S.lang]; };
-
   try { var sl = localStorage.getItem(LSTORE); if (sl === "th" || sl === "en") S.lang = sl; else if (!/^th/i.test(navigator.language || "th")) S.lang = "en"; } catch (e) {}
 
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
@@ -266,28 +354,24 @@ button, input, select { font: inherit; color: inherit; }
   function when(it) { return it.published_at || it.fetched_at || ""; }
   function ymd(iso) { var d = new Date(iso); return isNaN(d) ? "" : d.toLocaleDateString("en-CA", { timeZone: "Asia/Bangkok" }); }
   function loc() { return S.lang === "th" ? "th-TH" : "en-GB"; }
-  function fDay(iso) { var d = new Date(iso); return isNaN(d) ? T().unk : d.toLocaleDateString(loc(), { weekday: "short", day: "numeric", month: "long", year: "numeric", timeZone: "Asia/Bangkok" }); }
+  function fDay(iso) { var d = new Date(iso); return isNaN(d) ? T().unk : d.toLocaleDateString(loc(), { day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Bangkok" }); }
   function fTime(iso) { var d = new Date(iso); if (isNaN(d)) return ""; return d.toLocaleTimeString(loc(), { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "Asia/Bangkok" }) + (S.lang === "th" ? " น." : ""); }
   function isDropped(it) { return it.status === "irrelevant" || it.status === "excluded"; }
   function lv(it) { return isDropped(it) ? "grey" : (it.level || "grey"); }
   function related(it) {
-    try { var r = typeof it.related_urls === "string" ? JSON.parse(it.related_urls || "[]") : (it.related_urls || []); return r.map(safeUrl).filter(Boolean); }
-    catch (e) { return []; }
+    try { var r = typeof it.related_urls === "string" ? JSON.parse(it.related_urls || "[]") : (it.related_urls || []); return r.map(safeUrl).filter(Boolean); } catch (e) { return []; }
   }
+  var RAIL = '<svg viewBox="0 0 120 90" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="22" y="10" width="76" height="52" rx="14"/><path d="M22 40h76"/><circle cx="40" cy="52" r="3" fill="currentColor"/><circle cx="80" cy="52" r="3" fill="currentColor"/><path d="M34 62l-10 18M86 62l10 18M42 80h36"/></svg>';
+  var MASCOT = '<svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 14c6-8 16-8 22-4-4 8-12 10-20 8z" fill="#6BA36A"/><ellipse cx="50" cy="58" rx="34" ry="32" fill="#9B7FD1"/><ellipse cx="50" cy="62" rx="26" ry="22" fill="#B9A2E8"/><circle cx="39" cy="55" r="4" fill="#2A1B4D"/><circle cx="61" cy="55" r="4" fill="#2A1B4D"/><path d="M42 67q8 7 16 0" stroke="#2A1B4D" stroke-width="3" fill="none" stroke-linecap="round"/></svg>';
 
-  // โลโก้: ใช้ logo.png ที่อัปโหลดไว้ใน repo ถ้าไม่มีจะแสดงรูปสำรองแบบง่าย
-  var MASCOT = '<svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 14c6-8 16-8 22-4-4 8-12 10-20 8z" fill="#6BA36A"/><ellipse cx="50" cy="58" rx="34" ry="32" fill="#9B7FD1"/><ellipse cx="50" cy="62" rx="26" ry="22" fill="#B9A2E8"/><circle cx="39" cy="55" r="4" fill="#2A1B4D"/><circle cx="61" cy="55" r="4" fill="#2A1B4D"/><path d="M42 67q8 7 16 0" stroke="#2A1B4D" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="31" cy="64" r="4" fill="#F4A6C0" opacity=".8"/><circle cx="69" cy="64" r="4" fill="#F4A6C0" opacity=".8"/></svg>';
-  (function () {
-    var im = $("logoimg"), fb = function () { $("logo").innerHTML = MASCOT; };
-    im.addEventListener("error", fb);
-    if (im.complete && im.naturalWidth === 0) fb();
-  })();
+  // โลโก้: ถ้าไม่มี logo.png ให้ใช้รูปสำรอง
+  [["logoimg", "logo"], ["faceimg", "face"]].forEach(function (p) {
+    var im = $(p[0]), fb = function () { $(p[1]).innerHTML = MASCOT; };
+    im.addEventListener("error", fb); if (im.complete && im.naturalWidth === 0) fb();
+  });
+  window.__noimg = function (el) { var box = el.parentNode; box.classList.add("noimg"); el.remove(); };
 
-  try {
-    var raw = localStorage.getItem(STORE);
-    if (raw) { var o = JSON.parse(raw); if (o && Array.isArray(o.items) && o.items.length) { S.items = o.items; S.generated = o.generated_at || null; S.demo = false; } }
-  } catch (e) {}
-
+  try { var raw = localStorage.getItem(STORE); if (raw) { var o = JSON.parse(raw); if (o && Array.isArray(o.items) && o.items.length) { S.items = o.items; S.generated = o.generated_at || null; S.demo = false; } } } catch (e) {}
   function accept(text) {
     var o = JSON.parse(text), items = Array.isArray(o) ? o : o.items;
     if (!Array.isArray(items)) throw new Error("bad format");
@@ -308,80 +392,98 @@ button, input, select { font: inherit; color: inherit; }
       return true;
     });
   }
+  function byNew(a, b) { return new Date(when(b)) - new Date(when(a)); }
+  function liveItems() { return S.items.filter(function (it) { return !isDropped(it); }).sort(byNew); }
+  function thumbImg(it) { var u = safeUrl(it.image); return u ? '<img class="photo" loading="lazy" referrerpolicy="no-referrer" alt="" src="' + esc(u) + '" onerror="__noimg(this)">' : ""; }
 
   function renderStatic() {
-    var t = T();
-    document.documentElement.lang = S.lang;
+    var t = T(); document.documentElement.lang = S.lang;
     document.querySelectorAll("[data-i]").forEach(function (el) { var v = t[el.getAttribute("data-i")]; if (typeof v === "string") el.textContent = v; });
     document.querySelectorAll("[data-iph]").forEach(function (el) { el.placeholder = t[el.getAttribute("data-iph")]; });
     document.querySelectorAll("[data-lang]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === S.lang)); });
     $("sort").innerHTML = '<option value="desc"' + (S.sort === "desc" ? " selected" : "") + ">" + esc(t.newest) + '</option><option value="asc"' + (S.sort === "asc" ? " selected" : "") + ">" + esc(t.oldest) + "</option>";
+    $("more").textContent = t.showMore;
   }
 
   function renderHero() {
-    var t = T(), cand = S.items.filter(function (it) { return !isDropped(it); })
-      .sort(function (a, b) { return new Date(when(b)) - new Date(when(a)); })[0];
-    var h = $("hero");
-    if (!cand) { h.innerHTML = '<div class="empty">' + esc(t.noHero) + "</div>"; return; }
-    var L = lv(cand), url = safeUrl(cand.url), img = safeUrl(cand.image);
-    var rail = '<svg viewBox="0 0 120 90" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="22" y="10" width="76" height="52" rx="14"/><path d="M22 40h76"/><circle cx="40" cy="52" r="3" fill="currentColor"/><circle cx="80" cy="52" r="3" fill="currentColor"/><path d="M34 62l-10 18M86 62l10 18M42 80h36"/></svg>';
-    var pic = '<div class="hero-pic">' + (img ? '<img class="photo" alt="" src="' + esc(img) + '">' : '<div class="art">' + rail + "</div>") +
-      '<div class="cap">' + esc(t.source) + ": " + esc(cand.source_name || cand.source || "-") + " · " + esc(fDay(when(cand))) + " " + esc(fTime(when(cand))) + "</div></div>";
-    var upd = cand.is_update && cand.delta ? '<div class="upd"><b>' + esc(t.progress) + ":</b> " + esc(cand.delta) + "</div>" : "";
-    var go = url ? '<a class="go" href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + esc(t.open) + "</a>" : "";
-    h.innerHTML = '<div class="hero ' + L + '">' + pic + '<div class="hero-body"><div class="kicker"><span class="pill">' + esc(t.latest) + "</span><span>" + esc(t.lvl[L]) + "</span></div>" +
-      "<h2>" + esc(cand.title) + "</h2>" + upd + go + "</div></div>";
+    var t = T(), list = liveItems(), cand = list[0], h = $("hero");
+    if (!cand) { h.innerHTML = '<div class="hero-grid"><div><h1>' + esc(t.noHero) + "</h1></div></div>"; $("next").innerHTML = ""; return; }
+    var url = safeUrl(cand.url), L = lv(cand), img = safeUrl(cand.image);
+    var photo = img ? '<img class="photo" referrerpolicy="no-referrer" alt="" src="' + esc(img) + '" onerror="__noimg(this)">' : "";
+    var upd = cand.is_update && cand.delta ? '<div class="hupd"><b>' + esc(t.progress) + ":</b> " + esc(cand.delta) + "</div>" : "";
+    var go = url ? '<a class="btn-gold" href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + esc(t.open) + "</a>" : "";
+    h.innerHTML = '<div class="hero-grid"><div><div class="eyebrow">' + esc(t.latest) + " · " + esc(t.lvl[L]) + "</div><h1>" + esc(cand.title) + "</h1>" +
+      '<div class="hcap"><span>' + esc(t.source) + ": <b>" + esc(cand.source_name || cand.source || "-") + "</b></span><span>" + esc(fDay(when(cand))) + " " + esc(fTime(when(cand))) + "</span></div>" + upd +
+      '<div class="hbtns">' + go + '<a class="btn-ghost" href="#news">' + esc(t.seeAll) + "</a></div></div>" +
+      '<div class="arch">' + photo + '<span class="mascot"><img src="logo.png" alt="" onerror="this.parentNode.innerHTML=\'' + MASCOT.replace(/'/g, "\\'") + '\'"></span>' +
+      '<span class="tag">' + esc(t.source) + ": " + esc(cand.source_name || cand.source || "-") + " · " + esc(fDay(when(cand))) + "</span></div></div>";
+    $("next").innerHTML = list.slice(1, 4).map(function (it) {
+      var u = safeUrl(it.url); var tag = u ? "a" : "div";
+      return "<" + tag + ' class="nx"' + (u ? ' href="' + esc(u) + '" target="_blank" rel="noopener noreferrer"' : "") + '><span class="th">' + thumbImg(it) + "</span><span><b>" + esc(it.title) + "</b><small>" +
+        esc(it.source_name || it.source || "") + " · " + esc(fDay(when(it))) + "</small></span></" + tag + ">";
+    }).join("");
   }
 
-  function render() {
-    var t = T();
-    renderStatic(); renderHero();
-    var base = matched(), counts = { all: base.length, red: 0, yellow: 0, green: 0, grey: 0 };
+  function renderCats() {
+    var t = T(), live = liveItems();
+    $("cats").innerHTML = MAIN.map(function (c) {
+      var arr = live.filter(function (it) { return lv(it) === c; });
+      return '<button type="button" class="cc ' + c + '" data-go="' + c + '"><span class="num">' + arr.length + '</span><span class="nm">' + esc(t.lvl[c]) + '</span><span class="ds">' + esc(t.desc[c]) +
+        '</span><span class="lt">' + (arr[0] ? esc(arr[0].title) : esc(t.noNews)) + "</span></button>";
+    }).join("");
+  }
+
+  function renderNews() {
+    var t = T(), base = matched(), counts = { all: base.length, red: 0, yellow: 0, green: 0, grey: 0 };
     base.forEach(function (it) { var k = lv(it); if (counts[k] != null) counts[k]++; });
     $("tabs").innerHTML = CATS.map(function (c) {
       return '<button type="button" class="tab" data-c="' + c + '" aria-pressed="' + (S.cat === c) + '"><span class="dot d-' + c + '"></span>' + esc(t.cats[c]) + ' <span class="n">' + counts[c] + "</span></button>";
     }).join("");
-
     var srcs = {}; S.items.forEach(function (it) { var s = it.source_name || it.source; if (s) srcs[s] = 1; });
-    $("src").innerHTML = '<option value="">' + esc(t.allSrc) + "</option>" + Object.keys(srcs).sort().map(function (s) {
-      return '<option value="' + esc(s) + '"' + (s === S.src ? " selected" : "") + ">" + esc(s) + "</option>"; }).join("");
+    $("src").innerHTML = '<option value="">' + esc(t.allSrc) + "</option>" + Object.keys(srcs).sort().map(function (s) { return '<option value="' + esc(s) + '"' + (s === S.src ? " selected" : "") + ">" + esc(s) + "</option>"; }).join("");
 
-    var shown = base.filter(function (it) { return S.cat === "all" || lv(it) === S.cat; });
-    shown.sort(function (a, b) { var d = new Date(when(b)) - new Date(when(a)); return S.sort === "asc" ? -d : d; });
-    $("count").textContent = t.found(shown.length);
-    $("foot").innerHTML = S.demo ? '<span class="badge">' + esc(t.demo) + "</span> " + esc(t.demoMsg)
-      : esc(t.updated) + " " + (S.generated ? esc(fDay(S.generated) + " " + fTime(S.generated)) : "-") + " · " + esc(t.total) + " " + S.items.length + " " + esc(t.items);
-
-    var feed = $("feed");
-    if (!shown.length) { feed.innerHTML = '<div class="empty"><b>' + esc(t.empty1) + "</b>" + esc(t.empty2) + "</div>"; return; }
-    var html = "", last = "";
-    shown.forEach(function (it) {
-      var day = fDay(when(it)); if (day !== last) { html += '<div class="day">' + esc(day) + "</div>"; last = day; }
+    var list = base.filter(function (it) { return S.cat === "all" || lv(it) === S.cat; });
+    list.sort(function (a, b) { var d = byNew(a, b); return S.sort === "asc" ? -d : d; });
+    $("count").textContent = t.found(list.length);
+    var gal = $("gal");
+    if (!list.length) { gal.innerHTML = '<div class="empty"><b>' + esc(t.empty1) + "</b>" + esc(t.empty2) + "</div>"; $("more").hidden = true; return; }
+    gal.innerHTML = list.slice(0, S.shown).map(function (it) {
       var url = safeUrl(it.url), rel = related(it), L = lv(it);
       var title = url ? '<a href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + esc(it.title) + "</a>" : esc(it.title);
       var sum = it.summary && it.summary.trim() !== (it.title || "").trim() ? "<p>" + esc(it.summary) + "</p>" : "";
       var upd = it.is_update && it.delta ? '<div class="upd2"><b>' + esc(t.progress) + ":</b> " + esc(it.delta) + "</div>" : "";
       var tags = (it.line ? "<span>" + esc(it.line) + "</span>" : "") + (it.station ? "<span>" + esc(t.station) + esc(it.station) + "</span>" : "");
       var more = rel.length ? '<div class="rel">' + esc(t.more) + ": " + rel.map(function (u, i) { return '<a href="' + esc(u) + '" target="_blank" rel="noopener noreferrer">' + (i + 1) + "</a>"; }).join(" · ") + "</div>" : "";
-      var note = url ? "" : '<div class="rel"><i>' + esc(t.nolink) + "</i></div>";
-      html += '<article class="item ' + L + (isDropped(it) ? " dropped" : "") + '"><div class="lvl"><span class="dot d-' + L + '"></span>' + esc(isDropped(it) ? t.dropTag : t.lvl[L]) + "</div>" +
-        "<h3>" + title + "</h3>" + '<div class="meta"><span>' + esc(it.source_name || it.source || "") + "</span><span>" + esc(fTime(when(it))) + "</span>" + tags + "</div>" + sum + upd + more + note + "</article>";
-    });
-    feed.innerHTML = html;
+      var read = url ? '<a class="read" href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + esc(t.open) + " →</a>" : '<span class="rel"><i>' + esc(t.nolink) + "</i></span>";
+      return '<article class="card ' + L + (isDropped(it) ? " dropped" : "") + '"><div class="pic">' + thumbImg(it) + '<span class="ph">' + RAIL + '</span><span class="lvl">' + esc(isDropped(it) ? t.dropTag : t.lvl[L]) + "</span></div>" +
+        '<div class="cbody"><h3>' + title + "</h3>" + sum + upd + '<div class="cmeta"><b>' + esc(it.source_name || it.source || "") + "</b><span>" + esc(fDay(when(it))) + " " + esc(fTime(when(it))) + "</span>" + tags + "</div>" + more + read + "</div></article>";
+    }).join("");
+    var m = $("more"); m.hidden = list.length <= S.shown;
   }
 
-  $("tabs").addEventListener("click", function (e) { var b = e.target.closest(".tab"); if (b) { S.cat = b.getAttribute("data-c"); render(); $("feed").scrollTop = 0; } });
-  $("q").addEventListener("input", function (e) { S.q = e.target.value; render(); });
-  $("from").addEventListener("change", function (e) { S.from = e.target.value; render(); });
-  $("to").addEventListener("change", function (e) { S.to = e.target.value; render(); });
-  $("src").addEventListener("change", function (e) { S.src = e.target.value; render(); });
-  $("sort").addEventListener("change", function (e) { S.sort = e.target.value; render(); });
-  $("dropped").addEventListener("change", function (e) { S.dropped = e.target.checked; render(); });
+  function renderFoot() {
+    var t = T();
+    $("foot").innerHTML = S.demo ? '<span class="badge">' + esc(t.demo) + "</span> " + esc(t.demoMsg) : "";
+    $("updated").textContent = S.demo ? "" : t.updated + " " + (S.generated ? fDay(S.generated) + " " + fTime(S.generated) : "-") + " · " + t.total + " " + S.items.length + " " + t.items;
+  }
+
+  function render() { renderStatic(); renderHero(); renderCats(); renderNews(); renderFoot(); }
+  function refilter() { S.shown = PAGE; renderNews(); }
+
+  $("tabs").addEventListener("click", function (e) { var b = e.target.closest(".tab"); if (b) { S.cat = b.getAttribute("data-c"); refilter(); } });
+  $("cats").addEventListener("click", function (e) { var b = e.target.closest("[data-go]"); if (!b) return; S.cat = b.getAttribute("data-go"); refilter(); $("news").scrollIntoView({ behavior: "smooth" }); });
+  $("q").addEventListener("input", function (e) { S.q = e.target.value; refilter(); });
+  $("from").addEventListener("change", function (e) { S.from = e.target.value; refilter(); });
+  $("to").addEventListener("change", function (e) { S.to = e.target.value; refilter(); });
+  $("src").addEventListener("change", function (e) { S.src = e.target.value; refilter(); });
+  $("sort").addEventListener("change", function (e) { S.sort = e.target.value; refilter(); });
+  $("dropped").addEventListener("change", function (e) { S.dropped = e.target.checked; refilter(); });
+  $("more").addEventListener("click", function () { S.shown += PAGE; renderNews(); });
   document.querySelector(".row2").addEventListener("click", function (e) {
     var b = e.target.closest("[data-range]"); if (!b) return;
     var n = +b.getAttribute("data-range");
     if (!n) { S.from = ""; S.to = ""; } else { S.to = ymd(new Date().toISOString()); S.from = ymd(new Date(Date.now() - (n - 1) * 86400e3).toISOString()); }
-    $("from").value = S.from; $("to").value = S.to; render();
+    $("from").value = S.from; $("to").value = S.to; refilter();
   });
   document.querySelector(".seg").addEventListener("click", function (e) {
     var b = e.target.closest("[data-lang]"); if (!b) return; S.lang = b.getAttribute("data-lang");
@@ -391,10 +493,8 @@ button, input, select { font: inherit; color: inherit; }
     var root = document.documentElement, dark = root.getAttribute("data-theme") === "dark" || (!root.getAttribute("data-theme") && matchMedia("(prefers-color-scheme: dark)").matches);
     root.setAttribute("data-theme", dark ? "light" : "dark");
   });
-
   function fetchNews() {
-    fetch("news.json?t=" + Date.now(), { cache: "no-store" }).then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.text(); })
-      .then(accept).catch(function () {});
+    fetch("news.json?t=" + Date.now(), { cache: "no-store" }).then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.text(); }).then(accept).catch(function () {});
   }
   render(); fetchNews(); setInterval(fetchNews, 10 * 60 * 1000);
 })();
