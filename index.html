@@ -397,7 +397,7 @@ footer .bname { color: var(--night-fg); font-size: 18px; }
       foot1: "Headlines appear in their original language (Thai)"
     }
   };
-  var LINE_ADD_URL = ""; // ใส่ลิงก์เพิ่มเพื่อน เช่น "https://line.me/R/ti/p/@xxxxxxx" (ว่าง = ซ่อนปุ่ม)
+  var LINE_ADD_URL = "https://line.me/R/ti/p/@972yoymy"; // ใส่ลิงก์เพิ่มเพื่อน เช่น "https://line.me/R/ti/p/@xxxxxxx" (ว่าง = ซ่อนปุ่ม)
   var CATS = ["all", "red", "yellow", "green", "grey"], MAIN = ["red", "yellow", "green", "grey"];
   var STORE = "nongpheuak-news-v1", LSTORE = "nongpheuak-lang", PAGE = 12;
 
@@ -481,7 +481,7 @@ footer .bname { color: var(--night-fg); font-size: 18px; }
     var go = url ? '<a class="btn-gold" href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + esc(t.open) + "</a>" : "";
     h.innerHTML = '<div class="hero-grid"><div><div class="eyebrow">' + esc(t.latest) + " · " + esc(t.lvl[L]) + "</div><h1>" + esc(cand.title) + "</h1>" +
       '<div class="hcap"><span>' + esc(t.source) + ": <b>" + esc(cand.source_name || cand.source || "-") + "</b></span><span>" + esc(fDay(when(cand))) + " " + esc(fTime(when(cand))) + "</span></div>" + upd +
-      '<div class="hbtns">' + go + '<a class="btn-ghost" href="#news">' + esc(t.seeAll) + "</a></div></div>" +
+      '<div class="hbtns">' + go + '<a class="btn-ghost" href="#news">' + esc(t.seeAll) + "</a>" + (LINE_ADD_URL ? '<a class="btn-ghost" href="' + esc(LINE_ADD_URL) + '" target="_blank" rel="noopener noreferrer">' + esc(t.addFriend) + "</a>" : "") + "</div></div>" +
       '<div class="arch">' + photo + '<span class="mascot"><img src="logo.png" alt="" onerror="this.parentNode.innerHTML=\'' + MASCOT.replace(/'/g, "\\'") + '\'"></span>' +
       '<span class="tag">' + esc(t.source) + ": " + esc(cand.source_name || cand.source || "-") + " · " + esc(fDay(when(cand))) + "</span></div></div>";
     $("next").innerHTML = list.slice(1, 4).map(function (it) {
