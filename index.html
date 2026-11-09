@@ -62,7 +62,8 @@ html[data-theme=dark] .hero-img img{filter:brightness(.78) saturate(.95)}
 .hero .wrap{position:relative;z-index:2;padding-top:44px;padding-bottom:96px}
 .ht{max-width:min(600px,50%)}
 .eb{display:flex;align-items:center;gap:14px;color:var(--gold);font-weight:700;font-size:.9rem;margin:0 0 14px}.eb:before{content:"";width:40px;height:2px;background:var(--gold);flex:none}
-.ht h1{margin:0;font-size:clamp(2.3rem,5vw,3.9rem);line-height:1.18;color:var(--navy);font-weight:700;letter-spacing:-.01em}
+.ht h1 span,.ht h1 b{white-space:nowrap}
+.ht h1{margin:0;font-size:clamp(2rem,7.6vw,3.9rem);line-height:1.18;color:var(--navy);font-weight:700;letter-spacing:-.01em}
 .ht h1 b{display:block;color:var(--fg);font-weight:700}
 .ht p{margin:16px 0 24px;font-size:1.04rem;color:var(--muted);max-width:44ch}
 .hb{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
@@ -379,7 +380,9 @@ footer{background:var(--deep);color:#B9C7E6;padding:28px 0 max(28px,env(safe-are
   };
   var MAIN = ["red", "yellow", "green", "innov", "grey"], CATS = ["all"].concat(MAIN), PAGE = 12, AUTO = 5000;
   var CK = { red: "r", yellow: "y", green: "g", innov: "i", grey: "k" }, ICON = { red: "!", yellow: "▲", green: "●", innov: "✦", grey: "…" };
-  var INNOV = /นวัตกรรม|เทคโนโลยี|ไร้คนขับ|ไม่มีคนขับ|อัตโนมัติ|ปัญญาประดิษฐ์|ไฮเปอร์ลูป|แมกเลฟ|ไฮโดรเจน|พลังงานสะอาด|โซลาร์|ดิจิทัล|หุ่นยนต์|\bAI\b|innovation|innovative|driverless|autonomous|maglev|hyperloop|hydrogen|robot|digital twin|smart rail|\b5G\b|\bIoT\b/i;
+  var INNOV_STRONG = /ไร้คนขับ|ไม่มีคนขับ|ปัญญาประดิษฐ์|ไฮเปอร์ลูป|แมกเลฟ|ไฮโดรเจน|หุ่นยนต์|\bAI\b|driverless|autonomous|maglev|hyperloop|hydrogen|robot/i;
+  var INNOV_WEAK = /นวัตกรรม|เทคโนโลยี|อัตโนมัติ|innovation|innovative|digital twin|\b5G\b|\bIoT\b/i;
+  var OPERATOR = /bem|บีอีเอ็ม|รฟม|เอ็มอาร์ที|\bmrt\b|การรถไฟฟ้าขนส่งมวลชน/i;
   var SCN = { red: ["#C62828", "#5B0F0F", "#FFB4A8"], yellow: ["#E8710A", "#8A3B00", "#FFD36B"], green: ["#2E7D32", "#0E3B16", "#F2CF6B"], innov: ["#6D3FD2", "#2A1466", "#D9C9FF"], grey: ["#5B6470", "#2B323C", "#DCE2EA"] };
   var LCOL = { "น้ำเงิน": "#1E4FA8", "ม่วง": "#7B3FA0", "เหลือง": "#D9A400", "ชมพู": "#D6538A", "ส้ม": "#E8710A", "น้ำตาล": "#8A5A3C" };
   var STORE = "nongpheuak-news-v1", LSTORE = "nongpheuak-lang", TSTORE = "nongpheuak-theme", ASTORE = "nongpheuak-aa";
@@ -414,7 +417,10 @@ footer{background:var(--deep);color:#B9C7E6;padding:28px 0 max(28px,env(safe-are
   function lv(it) {
     if (it.level === "innov" || it.category === "innovation") return "innov";
     var L = MAIN.indexOf(it.level) >= 0 ? it.level : "grey";
-    if ((L === "green" || L === "grey") && INNOV.test((it.title || "") + " " + (it.summary || ""))) return "innov";
+    var tx = (it.title || "") + " " + (it.summary || "");
+    // นวัตกรรมจริงต้องมีคำชัดเจน (ไร้คนขับ, AI ฯลฯ) ส่วนข่าวของ BEM/รฟม. ที่แค่พูดถึง "นวัตกรรม/เทคโนโลยี" ถือเป็นประชาสัมพันธ์
+    if ((L === "green" || L === "grey") && (INNOV_STRONG.test(tx) || (INNOV_WEAK.test(tx) && !OPERATOR.test(tx)))) return "innov";
+    if (L === "grey" && OPERATOR.test(tx)) return "green";
     return L;
   }
   function byNew(a, b) { return new Date(when(b)) - new Date(when(a)); }
