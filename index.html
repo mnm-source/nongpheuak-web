@@ -17,13 +17,16 @@
 @font-face{font-family:Arimo;font-weight:400;font-style:normal;font-display:swap;src:url(fonts/arimo-latin-400-normal.woff2) format("woff2")}
 @font-face{font-family:Arimo;font-weight:700;font-style:normal;font-display:swap;src:url(fonts/arimo-latin-700-normal.woff2) format("woff2")}
 @font-face{font-family:Arimo;font-weight:700;font-style:italic;font-display:swap;src:url(fonts/arimo-latin-700-italic.woff2) format("woff2")}
-:root{--bg:#FBF8F0;--paper:#FFFFFF;--soft:#F3EEE0;--fg:#13213F;--muted:#55627F;--line:#E5DEC9;
---navy:#16357A;--navy-fg:#FFFFFF;--gold:#A87C0F;--goldbg:#FBF1CF;--deep:#12234D;
+:root{--bg:#FDF7EC;--paper:#FFFFFF;--soft:#F6EEDC;--fg:#12203F;--muted:#51607C;--line:#EBE0C8;
+--navy:#1B44C4;--navy-fg:#FFFFFF;--gold:#A97812;--goldbg:#F9EBC8;--deep:#0F2257;
+--inv:#6D3FD2;--invbg:#F0EAFE;--invbd:#CDBBF6;
 --red:#C62828;--redbg:#FDEEEE;--redbd:#EDB0B0;--amb:#946200;--ambbg:#FFF4D4;--ambbd:#E6C25C;--grn:#26773B;--grnbg:#E8F5EA;--grnbd:#9BCFA5;--gry:#5B6470;--grybg:#EEF0F3;--grybd:#C3C9D1;
---sans:Arial,Arimo,Prompt,"Noto Sans Thai",Loma,sans-serif}
-:root[data-theme=dark]{--bg:#0A1220;--paper:#111D33;--soft:#16253F;--fg:#E8EEFA;--muted:#9AA9C6;--line:#223454;
---navy:#8DB1FF;--navy-fg:#0A1220;--gold:#E6BE50;--goldbg:#2A2614;--deep:#0E1C38;
---red:#FF8E86;--redbg:#341C22;--redbd:#7D3A42;--amb:#F4C25A;--ambbg:#32280F;--ambbd:#85681F;--grn:#7FCB8C;--grnbg:#15291C;--grnbd:#3B7046;--gry:#AEB6C2;--grybg:#1E242E;--grybd:#4A5361}
+--sk1:#E3EFFD;--sk2:#FFFFFF;--bl1:#CADCF3;--bl2:#A8C3E8;--trk:#2C4B88;--sans:Arial,Arimo,Prompt,"Noto Sans Thai",Loma,sans-serif}
+:root[data-theme=dark]{--bg:#050912;--paper:#0C1424;--soft:#111C33;--fg:#EAF0FB;--muted:#9BABC8;--line:#1D2C49;
+--navy:#8DB4FF;--navy-fg:#050912;--gold:#E8BE55;--goldbg:#2B2613;--deep:#08122A;
+--inv:#B79BFF;--invbg:#1D1636;--invbd:#4B3A86;
+--red:#FF8E86;--redbg:#341C22;--redbd:#7D3A42;--amb:#F4C25A;--ambbg:#32280F;--ambbd:#85681F;--grn:#7FCB8C;--grnbg:#15291C;--grnbd:#3B7046;--gry:#AEB6C2;--grybg:#1E242E;--grybd:#4A5361;
+--sk1:#071126;--sk2:#12285A;--bl1:#10204A;--bl2:#183264;--trk:#030610}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:90px;font-size:16px;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--fg);font:400 1rem/1.65 var(--sans);overflow-x:hidden}
@@ -46,8 +49,44 @@ img{max-width:100%}
 .burger{display:none}
 @media(max-width:980px){.nl{display:none;position:absolute;left:0;right:0;top:100%;background:var(--paper);border-bottom:1px solid var(--line);flex-direction:column;gap:0;margin:0;padding:6px 22px 14px}.nl.open{display:flex}.nl a{padding:12px 0;border-bottom:1px solid var(--line)}.burger{display:grid}.top{position:sticky}}
 @media(max-width:520px){.brand small{display:none}.brand img{width:44px;height:44px}.ico.aa{display:none}.nav{gap:10px}}
+
+.c-i{--c:var(--inv);--cg:var(--invbg)}
+.tab[data-c=innov]{--tb:var(--invbd);--tg:var(--invbg)}
+.btn.org2{min-height:38px;padding:0 16px;font-size:.84rem;background:#06C755;color:#fff}@media(max-width:760px){.btn.org2{display:none}}
+/* hero */
+.hero{position:relative;overflow:hidden;background:var(--bg);min-height:clamp(430px,36vw,560px);display:flex;align-items:center}
+.hero-img{position:absolute;top:0;right:0;bottom:0;width:58%}
+.hero-img img{width:100%;height:100%;object-fit:cover;object-position:50% 58%;display:block}
+.hero-img:before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,var(--bg) 0,color-mix(in srgb,var(--bg) 55%,transparent) 22%,transparent 46%)}
+html[data-theme=dark] .hero-img img{filter:brightness(.78) saturate(.95)}
+.hero .wrap{position:relative;z-index:2;padding-top:44px;padding-bottom:96px}
+.ht{max-width:min(600px,50%)}
+.eb{display:flex;align-items:center;gap:14px;color:var(--gold);font-weight:700;font-size:.9rem;margin:0 0 14px}.eb:before{content:"";width:40px;height:2px;background:var(--gold);flex:none}
+.ht h1{margin:0;font-size:clamp(2.3rem,5vw,3.9rem);line-height:1.18;color:var(--navy);font-weight:700;letter-spacing:-.01em}
+.ht h1 b{display:block;color:var(--fg);font-weight:700}
+.ht p{margin:16px 0 24px;font-size:1.04rem;color:var(--muted);max-width:44ch}
+.hb{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.cd{display:flex;gap:8px}.cd i{width:13px;height:13px;border-radius:50%;display:block}
+.cd i:nth-child(1){background:#D32F2F}.cd i:nth-child(2){background:#F9A825}.cd i:nth-child(3){background:#2E7D32}.cd i:nth-child(4){background:#6D3FD2}.cd i:nth-child(5){border:2px solid var(--muted)}
+.fs{position:relative;z-index:5;margin:-58px auto 0;background:var(--paper);border:1px solid var(--line);border-radius:26px;box-shadow:0 16px 44px rgba(14,42,96,.14);display:grid;grid-template-columns:repeat(5,minmax(0,1fr));overflow:hidden}
+.fs a{display:flex;align-items:center;gap:12px;padding:18px 20px;border-left:1px solid var(--line)}
+.fs a:first-child{border-left:0}.fs a:hover{background:var(--goldbg)}
+.fs i{font-style:normal;font-size:1.6rem;flex:none}.fs b{display:block;font-size:.95rem;line-height:1.3}.fs small{display:block;color:var(--muted);font-size:.78rem;line-height:1.35}
+@media(max-width:980px){.fs{grid-template-columns:repeat(2,minmax(0,1fr))}.fs a{border-top:1px solid var(--line);border-left:0}.fs a:nth-child(-n+2){border-top:0}.fs a:nth-child(even){border-left:1px solid var(--line)}.fs a:last-child{grid-column:1/-1;border-left:0}}
+@media(max-width:760px){.hero{display:block;min-height:0;padding-bottom:84px}.hero-img{position:relative;width:100%;height:230px}.hero-img:before{background:linear-gradient(0deg,var(--bg) 0,transparent 60%)}.hero .wrap{padding-top:6px;padding-bottom:0}.ht{max-width:100%}}
+.dh{padding-top:34px}
+/* กรอบ เรียนรู้จากทุกเส้นทางทั่วโลก */
+.world{position:relative;overflow:hidden;margin-top:30px;border-radius:26px;border:1px solid var(--line);background:linear-gradient(100deg,var(--goldbg),var(--paper) 55%,var(--soft));padding:38px 40px;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:26px;align-items:center}
+.world h2{margin:0;font-size:clamp(1.6rem,3.4vw,2.4rem);line-height:1.3;color:var(--navy);font-weight:700}
+.world p{margin:8px 0 18px;color:var(--gold);font-weight:700;font-size:1.02rem;max-width:44ch}
+.rt{position:relative;height:120px}
+.rt:before{content:"";position:absolute;left:0;right:0;top:56px;height:6px;border-radius:4px;background:var(--gold)}
+.rt span{position:absolute;top:46px;width:26px;height:26px;border-radius:50%;background:var(--paper);border:5px solid var(--gold)}
+.rt span:nth-child(odd){border-color:var(--navy)}.rt span.x{width:34px;height:34px;top:42px;margin-left:-4px;background:var(--navy);border-color:var(--gold)}
+.rt em{position:absolute;top:84px;font-style:normal;font-size:.78rem;color:var(--muted);transform:translateX(-30%);white-space:nowrap}
+@media(max-width:820px){.world{grid-template-columns:1fr;padding:26px 22px}.rt{height:96px}.rt em{display:none}}
 /* hero carousel */
-.hrow{padding:26px 0 8px}
+.hrow{padding:12px 0 8px}
 .car{position:relative;border-radius:22px;overflow:hidden;background:var(--paper);border:1px solid var(--line);box-shadow:0 18px 50px rgba(20,40,90,.12)}
 .track{display:flex;transition:transform .7s cubic-bezier(.65,.05,.3,1);will-change:transform}
 .slide{position:relative;min-width:100%;min-height:clamp(380px,34vw,470px);display:flex;align-items:center;overflow:hidden}
@@ -131,8 +170,8 @@ html[data-theme=dark] .n .p em{color:#0A1220}
 .ed{background:var(--soft);margin-top:52px;padding:60px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .ed .big{font-size:clamp(1.8rem,4.2vw,3.1rem);line-height:1.3;margin:0 0 32px;max-width:22ch;font-weight:700}
 .cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}@media(max-width:820px){.cols{grid-template-columns:1fr}}
-.col{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:22px;display:grid;gap:8px;position:relative;min-height:180px;align-content:end}
-.col .no{position:absolute;left:22px;top:16px;font-size:2.4rem;font-weight:700;color:var(--line);line-height:1}.col .lb{position:absolute;right:20px;top:22px;color:var(--muted);font-size:.78rem}
+.col{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:22px;display:grid;gap:8px;position:relative;min-height:150px;align-content:end}
+.col .lb{position:absolute;right:20px;top:22px;color:var(--muted);font-size:.78rem}
 .col h4{margin:0;font-size:1.1rem;color:var(--navy)}.col p{margin:0;color:var(--muted);font-size:.88rem}
 .ins{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}@media(max-width:820px){.ins{grid-template-columns:1fr}}
 .box{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:18px;min-width:0}
@@ -159,24 +198,48 @@ footer{background:var(--deep);color:#B9C7E6;padding:28px 0 max(28px,env(safe-are
 <header class="top"><div class="wrap nav">
   <a class="brand" href="#daily" aria-label="น้องเผือก"><img src="logo.png" alt="" id="logo"><span><b data-i="name"></b><small data-i="sub"></small></span></a>
   <nav class="nl" id="nl" aria-label="menu">
-    <a href="#daily" data-i="nDaily"></a><a href="#overview" data-i="nCats"></a><a href="#lines" data-i="nLines"></a><a href="#news" data-i="nNews"></a><a href="#insights" data-i="nStats"></a><a href="#trust" data-i="nAbout"></a>
+    <a href="#daily" data-i="nDaily"></a><a href="#overview" data-i="nCats"></a><a href="#lines" data-i="nLines"></a><a href="#news" data-i="nNews"></a><a href="#insights" data-i="nStats"></a>
   </nav>
   <div class="tl2">
     <button class="ico aa" id="aa" type="button" aria-label="ขนาดตัวอักษร / Text size">Aa</button>
     <button class="ico" id="theme" type="button" aria-label="สลับโหมดสว่าง/มืด / Theme">🌓</button>
+    <a class="btn org2" id="hLine" href="#" target="_blank" rel="noopener noreferrer" data-i="addFriend"></a>
     <div class="seg" role="group" aria-label="Language / ภาษา"><button type="button" data-lang="th" aria-pressed="true">TH</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
     <button class="ico burger" id="burger" type="button" aria-label="เมนู / Menu" aria-expanded="false">☰</button>
   </div>
 </div></header>
 
 <main>
+<section class="hero" id="top" aria-label="น้องเผือก">
+  <div class="hero-img"><img src="hero.jpg" alt="" fetchpriority="high"></div>
+  <div class="wrap"><div class="ht">
+    <div class="eb" data-i="heroE"></div>
+    <h1><span data-i="heroH1"></span><b data-i="heroH2"></b></h1>
+    <p data-i="heroP"></p>
+    <div class="hb"><a class="btn" href="#daily" data-i="heroB1"></a><span class="cd" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></div>
+  </div></div>
+</section>
 <div class="wrap">
+  <nav class="fs" aria-label="menu2">
+    <a href="#daily"><i>📰</i><span><b data-i="nDaily"></b><small data-i="fsDaily"></small></span></a>
+    <a href="#overview"><i>🗂️</i><span><b data-i="nCats"></b><small data-i="fsCats"></small></span></a>
+    <a href="#lines"><i>🚇</i><span><b data-i="nLines"></b><small data-i="fsLines"></small></span></a>
+    <a href="#news"><i>🔎</i><span><b data-i="nNews"></b><small data-i="fsNews"></small></span></a>
+    <a href="#insights"><i>📊</i><span><b data-i="nStats"></b><small data-i="fsStats"></small></span></a>
+  </nav>
+
   <section class="hrow" id="daily" aria-roledescription="carousel" aria-label="ข่าวประจำวัน">
+    <div class="hd dh"><div><h2 data-i="dailyT"></h2><p data-i="dailyP"></p></div></div>
     <div class="car" id="car">
       <div class="track" id="track"></div>
       <span class="cnt" id="cnt" aria-hidden="true"></span>
       <div class="ctl"><div class="dots" id="dots"></div><div class="arrs"><button id="prev" type="button" aria-label="ก่อนหน้า">‹</button><button id="next" type="button" aria-label="ถัดไป">›</button></div></div>
     </div>
+  </section>
+
+  <section class="world" id="world" aria-label="world">
+    <div><h2 data-i="worldT"></h2><p data-i="worldP"></p><a class="btn" href="#news" data-i="worldB"></a></div>
+    <div class="rt" aria-hidden="true"><span class="x" style="left:2%"></span><span style="left:20%"></span><span style="left:38%"></span><span class="x" style="left:57%"></span><span style="left:76%"></span><span class="x" style="left:93%"></span><em style="left:2%" data-i="rt1"></em><em style="left:38%" data-i="rt2"></em><em style="left:76%" data-i="rt3"></em></div>
   </section>
 
   <section class="kt" id="overview">
@@ -213,9 +276,9 @@ footer{background:var(--deep);color:#B9C7E6;padding:28px 0 max(28px,env(safe-are
 <section class="ed" id="trust"><div class="wrap">
   <h2 class="big"><span data-i="bigA"></span> <span class="it" data-i="bigB"></span> <span data-i="bigC"></span></h2>
   <div class="cols">
-    <div class="col"><span class="no">01</span><span class="lb" data-i="l1"></span><h4 data-i="f1t"></h4><p data-i="f1"></p></div>
-    <div class="col"><span class="no">02</span><span class="lb" data-i="l2"></span><h4 data-i="f2t"></h4><p data-i="f2"></p></div>
-    <div class="col"><span class="no">03</span><span class="lb" data-i="l3"></span><h4 data-i="f3t"></h4><p data-i="f3"></p></div>
+    <div class="col"><span class="lb" data-i="l1"></span><h4 data-i="f1t"></h4><p data-i="f1"></p></div>
+    <div class="col"><span class="lb" data-i="l2"></span><h4 data-i="f2t"></h4><p data-i="f2"></p></div>
+    <div class="col"><span class="lb" data-i="l3"></span><h4 data-i="f3t"></h4><p data-i="f3"></p></div>
   </div>
 </div></section>
 
@@ -242,12 +305,15 @@ footer{background:var(--deep);color:#B9C7E6;padding:28px 0 max(28px,env(safe-are
     th: {
       name: "น้องเผือก", sub: "รวมข่าวรถไฟฟ้าทั่วโลก",
       nDaily: "ข่าวประจำวัน", nCats: "หมวดข่าว", nLines: "ข่าวตามสาย", nNews: "ข่าวทั้งหมด", nStats: "ข้อมูลและสถิติ", nAbout: "เกี่ยวกับ",
+      heroE: "ข่าวรถไฟฟ้าทั่วโลก เพื่อคนทำงาน MRT", heroH1: "เรียนรู้จากทุกเส้นทาง", heroH2: "ทั่วโลก", heroP: "คัดข่าวระบบขนส่งรางจากหลายประเทศ พร้อมบทเรียนที่นำมาปรับใช้กับงานบริการของเราได้ทุกวัน", heroB1: "อ่านข่าวประจำวัน ↓", dailyT: "ข่าวประจำวัน", dailyP: "ข่าวล่าสุดสูงสุด 4 เรื่อง เลื่อนอัตโนมัติทุก 5 วินาที",
+      fsDaily: "ข่าวล่าสุดวันนี้", fsCats: "แยกตามประเภท", fsLines: "รายสายรถไฟฟ้า", fsNews: "ค้นหาย้อนหลัง", fsStats: "ไทม์ไลน์และสถิติ",
+      worldT: "เรียนรู้จากทุกเส้นทางทั่วโลก", worldP: "ทุกอุบัติเหตุ ทุกโครงการ ทุกนวัตกรรม คือบทเรียนของคนทำงานรถไฟฟ้า", worldB: "ดูข่าวทั้งหมด →", rt1: "บทเรียนความปลอดภัย", rt2: "โครงการก่อสร้าง", rt3: "นวัตกรรม",
       daily: "ข่าวประจำวัน", of: "จาก", source: "ที่มา", progress: "ความคืบหน้า", open: "อ่านข่าวต้นฉบับ", prev: "ก่อนหน้า", next: "ถัดไป", go: "ไปที่",
       noHero: "ยังไม่มีข่าว",
       figT: "ภาพรวมข่าว 7 วันล่าสุด",
-      lvl: { red: "ข่าวอุบัติเหตุทั่วโลก", yellow: "ความคืบหน้าโครงการก่อสร้าง", green: "ประชาสัมพันธ์รถไฟฟ้า", grey: "อื่นๆ" },
-      sub2: { red: "เด้งเตือนในไลน์", yellow: "สายสีส้ม สีน้ำตาล ฯลฯ", green: "สายที่เปิดให้บริการอยู่", grey: "ดูได้บนเว็บเท่านั้น" },
-      cats: { all: "ทุกหมวด", red: "อุบัติเหตุ", yellow: "ก่อสร้าง", green: "ประชาสัมพันธ์", grey: "อื่นๆ" },
+      lvl: { red: "ข่าวอุบัติเหตุทั่วโลก", yellow: "ความคืบหน้าโครงการก่อสร้าง", green: "ประชาสัมพันธ์รถไฟฟ้า", innov: "นวัตกรรม", grey: "อื่นๆ" },
+      sub2: { red: "เด้งเตือนในไลน์", yellow: "สายสีส้ม สีน้ำตาล ฯลฯ", green: "สายที่เปิดให้บริการอยู่", innov: "เทคโนโลยีและระบบรางยุคใหม่", grey: "ดูได้บนเว็บเท่านั้น" },
+      cats: { all: "ทุกหมวด", red: "อุบัติเหตุ", yellow: "ก่อสร้าง", green: "ประชาสัมพันธ์", innov: "นวัตกรรม", grey: "อื่นๆ" },
       t1: "ข่าวล่าสุดของแต่ละสาย", t1d: "ข่าวล่าสุดที่พบของแต่ละสาย พร้อมลิงก์ต้นฉบับ",
       t2: "ค้นหาข่าวย้อนหลัง", t2d: "ตามคำสำคัญ ช่วงวันที่ สาย และแหล่งข่าว",
       t3: "ไทม์ไลน์โครงการก่อสร้าง", t3d: "ความคืบหน้าเรียงตามเวลา แยกตามสาย",
@@ -265,7 +331,7 @@ footer{background:var(--deep);color:#B9C7E6;padding:28px 0 max(28px,env(safe-are
       l1: "ที่มา", l2: "ไม่ซ้ำ", l3: "ลำดับความสำคัญ",
       f1t: "ลิงก์ต้นฉบับทุกข่าว", f1: "คัดจากสำนักข่าวที่น่าเชื่อถือ ไม่มีข่าวที่ AI สร้างขึ้นเอง",
       f2t: "ไม่รายงานข่าวซ้ำ", f2: "เรื่องเดียวกันจากหลายสำนักรวมเป็นหนึ่ง และแจ้งซ้ำเมื่อมีความคืบหน้าเท่านั้น",
-      f3t: "สีบอกความสำคัญ", f3: "แดง ด่วน · เหลือง ก่อสร้าง · เขียว ประชาสัมพันธ์ · เทา อื่นๆ ส่งสรุปเข้า LINE ทุกเช้า 08:00",
+      f3t: "สีบอกความสำคัญ", f3: "แดง อุบัติเหตุ · เหลือง ก่อสร้าง · เขียว ประชาสัมพันธ์ · ม่วง นวัตกรรม · เทา อื่นๆ ส่งสรุปเข้า LINE ทุกเช้า 08:00",
       insT: "ไทม์ไลน์และสถิติ", insP: "สรุปจากข่าวที่ระบบเก็บไว้จริง",
       tlT: "ไทม์ไลน์ความคืบหน้าโครงการ", tlNone: "ยังไม่มีข่าวความคืบหน้าโครงการก่อสร้าง",
       stCat: "จำนวนข่าวแต่ละหมวด (30 วัน)", stDay: "ข่าวต่อวัน (14 วัน)", stLine: "สายที่ถูกกล่าวถึงมากสุด", stSrc: "แหล่งข่าวมากสุด", stNone: "ยังไม่มีข้อมูล",
@@ -276,12 +342,15 @@ footer{background:var(--deep);color:#B9C7E6;padding:28px 0 max(28px,env(safe-are
     en: {
       name: "Nong Pheuak", sub: "Rail news from around the world",
       nDaily: "Daily news", nCats: "Categories", nLines: "By line", nNews: "All news", nStats: "Data & stats", nAbout: "About",
+      heroE: "Rail news worldwide, for MRT staff", heroH1: "Learn from every route", heroH2: "worldwide", heroP: "Rail news from many countries, with lessons we can apply to our own service every day.", heroB1: "Read today's news ↓", dailyT: "Daily news", dailyP: "Up to 4 latest stories, auto-advancing every 5 seconds",
+      fsDaily: "Latest today", fsCats: "By type", fsLines: "By line", fsNews: "Search the archive", fsStats: "Timeline and stats",
+      worldT: "Learn from every route worldwide", worldP: "Every incident, project and innovation is a lesson for rail staff", worldB: "See all news →", rt1: "Safety lessons", rt2: "Construction", rt3: "Innovation",
       daily: "Daily news", of: "of", source: "Source", progress: "Update", open: "Read original", prev: "Previous", next: "Next", go: "Go",
       noHero: "No news yet",
       figT: "Last 7 days at a glance",
-      lvl: { red: "Rail accidents worldwide", yellow: "Construction progress", green: "Service announcements", grey: "Other" },
-      sub2: { red: "Pushes an alert on LINE", yellow: "Orange, Brown lines etc.", green: "Lines already in service", grey: "Website only" },
-      cats: { all: "All", red: "Accidents", yellow: "Construction", green: "Service", grey: "Other" },
+      lvl: { red: "Rail accidents worldwide", yellow: "Construction progress", green: "Service announcements", innov: "Innovation", grey: "Other" },
+      sub2: { red: "Pushes an alert on LINE", yellow: "Orange, Brown lines etc.", green: "Lines already in service", innov: "New rail technology", grey: "Website only" },
+      cats: { all: "All", red: "Accidents", yellow: "Construction", green: "Service", innov: "Innovation", grey: "Other" },
       t1: "Latest by line", t1d: "The newest story found for each line, with source links",
       t2: "Search past news", t2d: "By keyword, date range, line and source",
       t3: "Construction timeline", t3d: "Progress in date order, grouped by line",
@@ -299,7 +368,7 @@ footer{background:var(--deep);color:#B9C7E6;padding:28px 0 max(28px,env(safe-are
       l1: "Source", l2: "No repeats", l3: "Priority",
       f1t: "Every story links to its source", f1: "Picked from trusted outlets. Nothing is written by the AI.",
       f2t: "No repeated stories", f2: "The same story from several outlets is merged, and only repeated when there is progress.",
-      f3t: "Colour shows priority", f3: "Red urgent · yellow construction · green service · grey other. A summary goes to LINE at 08:00 every day.",
+      f3t: "Colour shows priority", f3: "Red accidents · yellow construction · green service · purple innovation · grey other. A summary goes to LINE at 08:00 every day.",
       insT: "Timeline and statistics", insP: "Summarised from the stories actually collected",
       tlT: "Project progress timeline", tlNone: "No construction progress stories yet",
       stCat: "Stories per category (30 days)", stDay: "Stories per day (14 days)", stLine: "Most mentioned lines", stSrc: "Top sources", stNone: "No data yet",
@@ -308,9 +377,10 @@ footer{background:var(--deep);color:#B9C7E6;padding:28px 0 max(28px,env(safe-are
       demo: "Sample data", demoMsg: "Live news could not be loaded, showing samples (it will retry automatically)", updated: "Last updated", total: "Stories", items: ""
     }
   };
-  var MAIN = ["red", "yellow", "green", "grey"], CATS = ["all"].concat(MAIN), PAGE = 12, AUTO = 5000;
-  var CK = { red: "r", yellow: "y", green: "g", grey: "k" }, ICON = { red: "!", yellow: "▲", green: "●", grey: "…" };
-  var SCN = { red: ["#C62828", "#5B0F0F", "#FFB4A8"], yellow: ["#E8710A", "#8A3B00", "#FFD36B"], green: ["#2E7D32", "#0E3B16", "#F2CF6B"], grey: ["#5B6470", "#2B323C", "#DCE2EA"] };
+  var MAIN = ["red", "yellow", "green", "innov", "grey"], CATS = ["all"].concat(MAIN), PAGE = 12, AUTO = 5000;
+  var CK = { red: "r", yellow: "y", green: "g", innov: "i", grey: "k" }, ICON = { red: "!", yellow: "▲", green: "●", innov: "✦", grey: "…" };
+  var INNOV = /นวัตกรรม|เทคโนโลยี|ไร้คนขับ|ไม่มีคนขับ|อัตโนมัติ|ปัญญาประดิษฐ์|ไฮเปอร์ลูป|แมกเลฟ|ไฮโดรเจน|พลังงานสะอาด|โซลาร์|ดิจิทัล|หุ่นยนต์|\bAI\b|innovation|innovative|driverless|autonomous|maglev|hyperloop|hydrogen|robot|digital twin|smart rail|\b5G\b|\bIoT\b/i;
+  var SCN = { red: ["#C62828", "#5B0F0F", "#FFB4A8"], yellow: ["#E8710A", "#8A3B00", "#FFD36B"], green: ["#2E7D32", "#0E3B16", "#F2CF6B"], innov: ["#6D3FD2", "#2A1466", "#D9C9FF"], grey: ["#5B6470", "#2B323C", "#DCE2EA"] };
   var LCOL = { "น้ำเงิน": "#1E4FA8", "ม่วง": "#7B3FA0", "เหลือง": "#D9A400", "ชมพู": "#D6538A", "ส้ม": "#E8710A", "น้ำตาล": "#8A5A3C" };
   var STORE = "nongpheuak-news-v1", LSTORE = "nongpheuak-lang", TSTORE = "nongpheuak-theme", ASTORE = "nongpheuak-aa";
 
@@ -320,6 +390,7 @@ footer{background:var(--deep);color:#B9C7E6;padding:28px 0 max(28px,env(safe-are
     { id: 2, level: "red", title: "รถไฟใต้ดินชนกันที่เมืองหนึ่ง มีผู้บาดเจ็บหลายราย (ตัวอย่าง)", source_name: "ตัวอย่าง", published_at: ago(8) },
     { id: 3, level: "green", title: "MRT ประกาศปรับเวลาให้บริการช่วงเทศกาล (ตัวอย่าง)", source_name: "ตัวอย่าง", published_at: ago(20), line: "สายสีน้ำเงิน" },
     { id: 4, level: "yellow", title: "เตือน ปิดถนน เบี่ยงจราจร วิภาวดีฯ ยาว 2 เดือน สร้างสายสีส้ม", source_name: "bangkokbiznews", published_at: ago(30), line: "สายสีส้ม" },
+    { id: 6, level: "green", title: "ทดลองรถไฟฟ้าไร้คนขับสายใหม่ในต่างประเทศ (ตัวอย่าง)", source_name: "ตัวอย่าง", published_at: ago(52) },
     { id: 5, level: "grey", title: "BEM จัดกิจกรรมจิตอาสาพัฒนาสวนสุขภาพ", source_name: "The Bangkok Insight", published_at: ago(44) }
   ];
   var S = { items: DEMO, demo: true, generated: null, cat: "all", q: "", from: "", to: "", src: "", line: "", sort: "desc", lang: "th", shown: PAGE, tl: "" };
@@ -340,7 +411,12 @@ footer{background:var(--deep);color:#B9C7E6;padding:28px 0 max(28px,env(safe-are
   function loc() { return S.lang === "th" ? "th-TH" : "en-GB"; }
   function fDay(iso) { var d = new Date(iso); return isNaN(d) ? T().unk : d.toLocaleDateString(loc(), { day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Bangkok" }); }
   function fTime(iso) { var d = new Date(iso); if (isNaN(d)) return ""; return d.toLocaleTimeString(loc(), { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "Asia/Bangkok" }) + (S.lang === "th" ? " น." : ""); }
-  function lv(it) { return MAIN.indexOf(it.level) >= 0 ? it.level : "grey"; }
+  function lv(it) {
+    if (it.level === "innov" || it.category === "innovation") return "innov";
+    var L = MAIN.indexOf(it.level) >= 0 ? it.level : "grey";
+    if ((L === "green" || L === "grey") && INNOV.test((it.title || "") + " " + (it.summary || ""))) return "innov";
+    return L;
+  }
   function byNew(a, b) { return new Date(when(b)) - new Date(when(a)); }
   function liveItems() { return S.items.slice().sort(byNew); }
   function related(it) { try { var r = typeof it.related_urls === "string" ? JSON.parse(it.related_urls || "[]") : (it.related_urls || []); return r.map(safeUrl).filter(Boolean); } catch (e) { return []; } }
@@ -361,7 +437,7 @@ footer{background:var(--deep);color:#B9C7E6;padding:28px 0 max(28px,env(safe-are
     document.querySelectorAll("[data-lang]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === S.lang)); });
     $("sort").innerHTML = '<option value="desc"' + (S.sort === "desc" ? " selected" : "") + ">" + esc(t.newest) + '</option><option value="asc"' + (S.sort === "asc" ? " selected" : "") + ">" + esc(t.oldest) + "</option>";
     $("more").textContent = t.showMore;
-    $("ctaBtn").href = LINE_ADD_URL;
+    $("ctaBtn").href = LINE_ADD_URL; $("hLine").href = LINE_ADD_URL;
     $("fline").innerHTML = LINE_ADD_URL ? ' · <a href="' + esc(LINE_ADD_URL) + '" target="_blank" rel="noopener noreferrer">' + esc(t.addFriend) + "</a>" : "";
     $("figT").textContent = t.figT;
     document.title = t.name + " " + t.sub;
@@ -374,7 +450,7 @@ footer{background:var(--deep);color:#B9C7E6;padding:28px 0 max(28px,env(safe-are
     H.n = list.length; if (H.i >= H.n) H.i = 0;
     if (!list.length) { tr.innerHTML = '<div class="slide"><div class="cp"><h2>' + esc(t.noHero) + "</h2></div></div>"; $("dots").innerHTML = ""; $("cnt").textContent = ""; return; }
     tr.innerHTML = list.map(function (it, k) {
-      var L = lv(it), u = safeUrl(it.url), c = "var(--" + { red: "red", yellow: "amb", green: "grn", grey: "gry" }[L] + ")";
+      var L = lv(it), u = safeUrl(it.url), c = "var(--" + { red: "red", yellow: "amb", green: "grn", innov: "inv", grey: "gry" }[L] + ")";
       var upd = it.is_update && it.delta ? '<div class="upd"><b>' + esc(t.progress) + ":</b> " + esc(it.delta) + "</div>" : "";
       var go = u ? '<a class="btn" href="' + esc(u) + '" target="_blank" rel="noopener noreferrer">' + esc(t.open) + " →</a>" : "";
       return '<div class="slide" role="group" aria-roledescription="slide" aria-label="' + (k + 1) + " / " + list.length + '"' + (k === H.i ? "" : ' aria-hidden="true"') + '><div class="hbg">' + scene(L, true) + photo(it) + '</div><div class="cp" style="--cc:' + c + '"><span class="chip">' + esc(t.lvl[L]) + '</span><div class="k">' + esc(t.daily) + " " + (k + 1) + "/" + list.length + (it.line ? " · " + esc(it.line) : "") + "</div><h2>" + esc(it.title) + '</h2><div class="m">' + esc(t.source) + ": <b>" + esc(it.source_name || it.source || "-") + "</b> · " + esc(fDay(when(it))) + " " + esc(fTime(when(it))) + "</div>" + upd + go + "</div></div>";
@@ -414,7 +490,7 @@ footer{background:var(--deep);color:#B9C7E6;padding:28px 0 max(28px,env(safe-are
 
   /* ---------- ภาพรวม + เมนู ---------- */
   function renderOverview() {
-    var t = T(), cut = Date.now() - 7 * 86400e3, c = { red: 0, yellow: 0, green: 0, grey: 0 };
+    var t = T(), cut = Date.now() - 7 * 86400e3, c = { red: 0, yellow: 0, green: 0, innov: 0, grey: 0 };
     S.items.forEach(function (it) { if (new Date(when(it)).getTime() >= cut) c[lv(it)]++; });
     $("figs").innerHTML = MAIN.map(function (k) { return '<button type="button" class="fr c-' + CK[k] + '" data-go="' + k + '"><span class="d">' + ICON[k] + '</span><span><b>' + esc(t.lvl[k]) + "</b><small>" + esc(t.sub2[k]) + '</small></span><span class="n">' + c[k] + "</span></button>"; }).join("");
     var rss = '<a class="tc" href="feed.xml" target="_blank" rel="noopener"><span class="ic">📡</span><b>' + esc(t.t6) + '</b><span class="s">' + esc(t.t6d) + "</span><u>" + esc(t.t6c) + " ›</u></a>";
@@ -449,7 +525,7 @@ footer{background:var(--deep);color:#B9C7E6;padding:28px 0 max(28px,env(safe-are
     });
   }
   function renderNews() {
-    var t = T(), base = matched(), counts = { all: base.length, red: 0, yellow: 0, green: 0, grey: 0 };
+    var t = T(), base = matched(), counts = { all: base.length, red: 0, yellow: 0, green: 0, innov: 0, grey: 0 };
     base.forEach(function (it) { counts[lv(it)]++; });
     $("tabs").innerHTML = CATS.map(function (c) {
       return '<button type="button" class="tab" data-c="' + c + '" aria-pressed="' + (S.cat === c) + '">' + (c === "all" ? "" : '<span class="dot c-' + CK[c] + '"></span>') + esc(t.cats[c]) + ' <span class="n">' + counts[c] + "</span></button>";
@@ -494,9 +570,9 @@ footer{background:var(--deep);color:#B9C7E6;padding:28px 0 max(28px,env(safe-are
       return "<li>" + ti + "<small>" + esc(fDay(when(it))) + " · " + esc(it.source_name || it.source || "") + "</small>" + (it.is_update && it.delta ? '<span class="tu">' + esc(t.progress) + ": " + esc(it.delta) + "</span>" : "") + "</li>";
     }).join("") + "</ul>" : '<p style="color:var(--muted);margin:0">' + esc(t.tlNone) + "</p>";
     var sel = names.length > 1 ? '<select id="tlsel" aria-label="line">' + names.map(function (n) { return '<option value="' + esc(n) + '"' + (n === S.tl ? " selected" : "") + ">" + esc(n) + "</option>"; }).join("") + "</select>" : (names[0] ? '<small style="font-weight:400;color:var(--muted)">' + esc(names[0]) + "</small>" : "");
-    var c = { red: 0, yellow: 0, green: 0, grey: 0 }, ln = {}, sr = {}, dc = {};
+    var c = { red: 0, yellow: 0, green: 0, innov: 0, grey: 0 }, ln = {}, sr = {}, dc = {};
     rows.forEach(function (it) { c[lv(it)]++; if (it.line) ln[it.line] = (ln[it.line] || 0) + 1; var s = it.source_name || it.source; if (s) sr[s] = (sr[s] || 0) + 1; var d = ymd(when(it)); dc[d] = (dc[d] || 0) + 1; });
-    var col = { red: "var(--red)", yellow: "var(--amb)", green: "var(--grn)", grey: "var(--gry)" };
+    var col = { red: "var(--red)", yellow: "var(--amb)", green: "var(--grn)", innov: "var(--inv)", grey: "var(--gry)" };
     var days = [], mx = 1; for (var i = 13; i >= 0; i--) { var d = ymd(new Date(now - i * 86400e3).toISOString()); days.push([d, dc[d] || 0]); mx = Math.max(mx, dc[d] || 0); }
     $("ins").innerHTML =
       '<div class="box"><h3>' + esc(t.tlT) + sel + "</h3>" + tl + "</div>" +
