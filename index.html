@@ -27,6 +27,11 @@
 --inv:#B79BFF;--invbg:#1D1636;--invbd:#4B3A86;
 --red:#FF8E86;--redbg:#341C22;--redbd:#7D3A42;--amb:#F4C25A;--ambbg:#32280F;--ambbd:#85681F;--grn:#7FCB8C;--grnbg:#15291C;--grnbd:#3B7046;--gry:#AEB6C2;--grybg:#1E242E;--grybd:#4A5361;
 --sk1:#071126;--sk2:#12285A;--bl1:#10204A;--bl2:#183264;--trk:#030610}
+/* ===== DESIGN SYSTEM TOKENS ===== */
+:root{--s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:20px;--s6:24px;--s8:32px;--s10:40px;--s12:48px;--s16:64px;
+--r-s:10px;--r-m:16px;--r-l:24px;--m-fast:140ms;--m-base:240ms;--ease:cubic-bezier(.2,.7,.2,1);
+--e1:0 1px 2px rgba(18,32,63,.06);--e2:0 10px 28px rgba(18,32,63,.12);--glass:rgba(253,247,236,.8)}
+:root[data-theme=dark]{--e1:none;--e2:0 10px 30px rgba(0,0,0,.55);--glass:rgba(5,9,18,.76)}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:90px;font-size:16px;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--fg);font:400 1rem/1.65 var(--sans);overflow-x:hidden}
@@ -37,9 +42,9 @@ img{max-width:100%}
 .it{font-weight:700;color:var(--gold)} html[lang=en] .it{font-style:italic}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 /* header */
-.top{background:var(--paper);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;padding-top:env(safe-area-inset-top,0px)}
-.nav{display:flex;align-items:center;gap:22px;min-height:74px}
-.brand{display:flex;align-items:center;gap:12px;min-width:0}.brand img{width:52px;height:52px;border-radius:50%;border:2px solid var(--gold);background:#CFC4F5;flex:none}
+.top{background:var(--glass);-webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;padding-top:env(safe-area-inset-top,0px)}
+.nav{display:flex;align-items:center;gap:22px;min-height:68px}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}.brand img{width:44px;height:44px;border-radius:50%;border:2px solid var(--gold);background:#CFC4F5;flex:none}
 .brand b{display:block;font-size:1.25rem;color:var(--navy);line-height:1.15;font-weight:700}.brand small{color:var(--muted);font-size:.8rem;display:block;line-height:1.3}
 .nl{display:flex;gap:22px;margin-left:18px;font-size:.92rem;font-weight:600}.nl a{padding:6px 0;border-bottom:2px solid transparent}.nl a:hover{border-color:var(--gold)}
 .tl2{margin-left:auto;display:flex;gap:8px;align-items:center}
@@ -75,9 +80,24 @@ html[data-theme=dark] .hero-img img{filter:brightness(.78) saturate(.95)}
 .fs i{font-style:normal;font-size:1.6rem;flex:none}.fs b{display:block;font-size:.95rem;line-height:1.3}.fs small{display:block;color:var(--muted);font-size:.78rem;line-height:1.35}
 @media(max-width:980px){.fs{grid-template-columns:repeat(2,minmax(0,1fr))}.fs a{border-top:1px solid var(--line);border-left:0}.fs a:nth-child(-n+2){border-top:0}.fs a:nth-child(even){border-left:1px solid var(--line)}.fs a:last-child{grid-column:1/-1;border-left:0}}
 @media(max-width:760px){.hero{display:block;min-height:0;padding-bottom:84px}.hero-img{position:relative;width:100%;height:230px}.hero-img:before{background:linear-gradient(0deg,var(--bg) 0,transparent 60%)}.hero .wrap{padding-top:6px;padding-bottom:0}.ht{max-width:100%}}
-.dh{padding-top:34px}
+.dh{padding-top:0}
+/* ===== bento ===== */
+.bento{position:relative;z-index:3;margin-top:calc(-1 * var(--s12));display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--s4)}
+.bento .hrow{grid-column:span 8;padding:0;min-width:0}.bento .hrow .car{height:100%}.bento .hrow .slide{min-height:clamp(400px,34vw,470px)}
+.bento .kt{display:contents}.bento .fig{grid-column:span 4;min-width:0}
+.bento .tools{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s4)}
+@media(max-width:760px){.bento .tools{grid-template-columns:minmax(0,1fr)}}
+.bento .cp h2{font-size:clamp(1.25rem,2.1vw,1.75rem)}
+.bento .world{grid-column:1/-1;margin:0}
+@media(max-width:980px){.bento .hrow,.bento .fig{grid-column:1/-1}}
+@media(max-width:760px){.bento{margin-top:calc(-1 * var(--s10))}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* micro-interactions */
+.tc,.lc,.fig,.world,.n .p,.btn,.ico,.chipbtn,.tab{transition:transform var(--m-base) var(--ease),box-shadow var(--m-base),border-color var(--m-fast),background var(--m-fast),filter var(--m-fast)}
+.tc:hover,.lc:hover{transform:translateY(-3px);box-shadow:var(--e2)}.n:hover .p{transform:translateY(-3px);box-shadow:var(--e2)}
+.btn:hover{transform:translateY(-2px);box-shadow:var(--e2)}.btn:active{transform:none}
 /* กรอบ เรียนรู้จากทุกเส้นทางทั่วโลก */
-.world{position:relative;overflow:hidden;margin-top:30px;border-radius:26px;border:1px solid var(--line);background:linear-gradient(100deg,var(--goldbg),var(--paper) 55%,var(--soft));padding:38px 40px;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:26px;align-items:center}
+.world{position:relative;overflow:hidden;margin-top:30px;border-radius:var(--r-l);border:1px solid var(--line);background:linear-gradient(100deg,var(--goldbg),var(--paper) 55%,var(--soft));padding:38px 40px;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:26px;align-items:center}
 .world h2{margin:0;font-size:clamp(1.6rem,3.4vw,2.4rem);line-height:1.3;color:var(--navy);font-weight:700}
 .world p{margin:8px 0 18px;color:var(--gold);font-weight:700;font-size:1.02rem;max-width:44ch}
 .rt{position:relative;height:120px}
@@ -88,7 +108,7 @@ html[data-theme=dark] .hero-img img{filter:brightness(.78) saturate(.95)}
 @media(max-width:820px){.world{grid-template-columns:1fr;padding:26px 22px}.rt{height:96px}.rt em{display:none}}
 /* hero carousel */
 .hrow{padding:12px 0 8px}
-.car{position:relative;border-radius:22px;overflow:hidden;background:var(--paper);border:1px solid var(--line);box-shadow:0 18px 50px rgba(20,40,90,.12)}
+.car{position:relative;border-radius:var(--r-l);overflow:hidden;background:var(--paper);border:1px solid var(--line);box-shadow:var(--e2)}
 .track{display:flex;transition:transform .7s cubic-bezier(.65,.05,.3,1);will-change:transform}
 .slide{position:relative;min-width:100%;min-height:clamp(380px,34vw,470px);display:flex;align-items:center;overflow:hidden}
 .hbg{position:absolute;inset:0;background:var(--deep)}.hbg svg,.hbg img{position:absolute;inset:0;width:100%;height:100%;display:block}.hbg img{object-fit:cover}
@@ -117,7 +137,7 @@ html[data-theme=dark] .dots button:before{background:rgba(255,255,255,.28)}
 .sec{padding:44px 0 6px}.hd{display:flex;align-items:end;justify-content:space-between;gap:14px;margin:0 0 16px;flex-wrap:wrap}
 .hd h2{margin:0;font-size:clamp(1.5rem,3.2vw,2rem);color:var(--navy);line-height:1.3;font-weight:700}.hd p{margin:2px 0 0;color:var(--muted);font-size:.92rem}.hd a{color:var(--muted);font-size:.88rem}
 .kt{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:18px;padding-top:26px}
-.fig{background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:0 10px 30px rgba(20,40,90,.07);overflow:hidden;display:flex;flex-direction:column}
+.fig{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-l);box-shadow:var(--e1);overflow:hidden;display:flex;flex-direction:column}
 .fig h3{margin:0;padding:14px 18px;font-size:.9rem;color:var(--muted);font-weight:600;border-bottom:1px solid var(--line)}
 .fr{display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:12px;align-items:center;padding:13px 18px;border:0;border-bottom:1px solid var(--line);background:transparent;text-align:left;cursor:pointer;width:100%;flex:1}
 .fr:last-child{border:0}.fr:hover{background:var(--soft)}
@@ -125,18 +145,18 @@ html[data-theme=dark] .dots button:before{background:rgba(255,255,255,.28)}
 .fr b{font-size:.92rem;display:block;line-height:1.35}.fr small{color:var(--muted);font-size:.76rem;display:block;line-height:1.35}.fr .n{font-size:1.6rem;font-weight:700;color:var(--c);font-variant-numeric:tabular-nums}
 .c-r{--c:var(--red);--cg:var(--redbg)}.c-y{--c:var(--amb);--cg:var(--ambbg)}.c-g{--c:var(--grn);--cg:var(--grnbg)}.c-k{--c:var(--gry);--cg:var(--grybg)}
 .tools{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.tc{background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:16px;display:grid;grid-template-columns:44px minmax(0,1fr);gap:3px 14px;align-content:start}
-.tc:hover{border-color:var(--gold);transform:translateY(-1px)}
+.tc{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-l);padding:16px;display:grid;grid-template-columns:44px minmax(0,1fr);gap:3px 14px;align-content:start}
+.tc:hover{border-color:var(--gold)}
 .tc.line{background:var(--goldbg);border-color:var(--gold)}
 .tc .ic{grid-row:span 3;width:44px;height:44px;border-radius:12px;background:var(--paper);border:1px solid var(--line);display:grid;place-items:center;font-size:1.25rem}
 .tc b{font-size:1rem;line-height:1.4}.tc span.s{color:var(--muted);font-size:.82rem;line-height:1.5}.tc u{text-decoration:none;color:var(--navy);font-weight:700;font-size:.86rem;margin-top:3px}
 @media(max-width:980px){.kt{grid-template-columns:1fr}}@media(max-width:560px){.tools{grid-template-columns:1fr}}
 .lgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 @media(max-width:900px){.lgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.lgrid{grid-template-columns:1fr}}
-.lc{background:var(--paper);border:1px solid var(--line);border-left:5px solid var(--lc,var(--navy));border-radius:14px;padding:13px 16px;display:grid;gap:3px;align-content:start}
-.lc:hover{box-shadow:0 8px 22px rgba(20,40,90,.12)}.lc .ln{font-weight:700}.lc .lt{font-size:.9rem;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.lc small{color:var(--muted);font-size:.78rem}
+.lc{background:var(--paper);border:1px solid var(--line);border-left:5px solid var(--lc,var(--navy));border-radius:var(--r-m);padding:13px 16px;display:grid;gap:3px;align-content:start}
+.lc .ln{font-weight:700}.lc .lt{font-size:.9rem;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.lc small{color:var(--muted);font-size:.78rem}
 /* finder */
-.bar{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:12px;display:grid;gap:10px}
+.bar{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-l);padding:12px;display:grid;gap:10px}
 .tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px}
 .tab{border:1.5px solid var(--tb);background:var(--tg);border-radius:999px;padding:4px 14px;font-size:.88rem;cursor:pointer;white-space:nowrap;min-height:38px;display:inline-flex;align-items:center;gap:7px;font-weight:500}
 .tab .n{font-weight:700;font-variant-numeric:tabular-nums}
@@ -156,7 +176,7 @@ select.chipbtn{background:var(--paper)}
 .gal{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;margin-top:18px}
 @media(max-width:1020px){.gal{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:760px){.gal{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}}@media(max-width:460px){.gal{grid-template-columns:minmax(0,1fr)}}
 .n{display:flex;flex-direction:column;gap:8px;min-width:0}
-.n .p{aspect-ratio:4/3;border-radius:14px;overflow:hidden;position:relative;border-bottom:4px solid var(--c);background:var(--soft)}
+.n .p{aspect-ratio:4/3;border-radius:var(--r-m);overflow:hidden;position:relative;border-bottom:4px solid var(--c);background:var(--soft)}
 .n .p svg,.n .p img{position:absolute;inset:0;width:100%;height:100%;display:block}.n .p img{object-fit:cover}
 .n .p em{position:absolute;left:10px;top:10px;font-style:normal;background:var(--c);color:#fff;border-radius:999px;padding:1px 11px;font-size:.74rem;font-weight:700;max-width:calc(100% - 20px);z-index:2}
 html[data-theme=dark] .n .p em{color:#0A1220}
@@ -171,11 +191,11 @@ html[data-theme=dark] .n .p em{color:#0A1220}
 .ed{background:var(--soft);margin-top:52px;padding:60px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .ed .big{font-size:clamp(1.8rem,4.2vw,3.1rem);line-height:1.3;margin:0 0 32px;max-width:22ch;font-weight:700}
 .cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}@media(max-width:820px){.cols{grid-template-columns:1fr}}
-.col{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:22px;display:grid;gap:8px;position:relative;min-height:150px;align-content:end}
+.col{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-l);padding:22px;display:grid;gap:8px;position:relative;min-height:150px;align-content:end}
 .col .lb{position:absolute;right:20px;top:22px;color:var(--muted);font-size:.78rem}
 .col h4{margin:0;font-size:1.1rem;color:var(--navy)}.col p{margin:0;color:var(--muted);font-size:.88rem}
 .ins{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}@media(max-width:820px){.ins{grid-template-columns:1fr}}
-.box{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:18px;min-width:0}
+.box{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-l);padding:18px;min-width:0}
 .box h3{margin:0 0 12px;font-size:1.05rem;color:var(--navy);display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
 .box h3 select{font-size:.8rem;border:1px solid var(--line);border-radius:999px;background:var(--soft);padding:3px 10px;max-width:60%}
 .tlx{list-style:none;margin:0;padding:0 0 0 24px;position:relative;display:grid;gap:13px}.tlx:before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:var(--line)}
@@ -192,8 +212,9 @@ html[data-theme=dark] .n .p em{color:#0A1220}
 footer{background:var(--deep);color:#B9C7E6;padding:28px 0 max(28px,env(safe-area-inset-bottom,0px));font-size:.84rem}
 .fl{display:flex;gap:18px;flex-wrap:wrap;align-items:center;justify-content:space-between}.fl a{color:#fff;text-decoration:underline}.fl b{color:#fff;font-size:1.1rem}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#12234D;color:#fff;padding:8px 18px;border-radius:999px;font-size:.88rem;z-index:50}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.track{transition:none}.dots button.on.run:after{animation:none;width:100%}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}.track{transition:none}.dots button.on.run:after{animation:none;width:100%}}
 </style>
+<script type="application/ld+json" id="ld">{"@context":"https://schema.org","@type":"WebSite","name":"น้องเผือก","description":"รวมข่าวรถไฟฟ้าทั่วโลก"}</script>
 </head>
 <body>
 <header class="top"><div class="wrap nav">
@@ -221,16 +242,11 @@ footer{background:var(--deep);color:#B9C7E6;padding:28px 0 max(28px,env(safe-are
   </div></div>
 </section>
 <div class="wrap">
-  <nav class="fs" aria-label="menu2">
-    <a href="#daily"><i>📰</i><span><b data-i="nDaily"></b><small data-i="fsDaily"></small></span></a>
-    <a href="#overview"><i>🗂️</i><span><b data-i="nCats"></b><small data-i="fsCats"></small></span></a>
-    <a href="#lines"><i>🚇</i><span><b data-i="nLines"></b><small data-i="fsLines"></small></span></a>
-    <a href="#news"><i>🔎</i><span><b data-i="nNews"></b><small data-i="fsNews"></small></span></a>
-    <a href="#insights"><i>📊</i><span><b data-i="nStats"></b><small data-i="fsStats"></small></span></a>
-  </nav>
 
+
+  <div class="bento" id="today">
   <section class="hrow" id="daily" aria-roledescription="carousel" aria-label="ข่าวประจำวัน">
-    <div class="hd dh"><div><h2 data-i="dailyT"></h2><p data-i="dailyP"></p></div></div>
+    <div class="hd dh sr"><div><h2 data-i="dailyT"></h2><p data-i="dailyP"></p></div></div>
     <div class="car" id="car">
       <div class="track" id="track"></div>
       <span class="cnt" id="cnt" aria-hidden="true"></span>
@@ -238,15 +254,18 @@ footer{background:var(--deep);color:#B9C7E6;padding:28px 0 max(28px,env(safe-are
     </div>
   </section>
 
-  <section class="world" id="world" aria-label="world">
-    <div><h2 data-i="worldT"></h2><p data-i="worldP"></p><a class="btn" href="#news" data-i="worldB"></a></div>
-    <div class="rt" aria-hidden="true"><span class="x" style="left:2%"></span><span style="left:20%"></span><span style="left:38%"></span><span class="x" style="left:57%"></span><span style="left:76%"></span><span class="x" style="left:93%"></span><em style="left:2%" data-i="rt1"></em><em style="left:38%" data-i="rt2"></em><em style="left:76%" data-i="rt3"></em></div>
-  </section>
+
 
   <section class="kt" id="overview">
     <div class="fig"><h3 id="figT"></h3><div id="figs" style="display:flex;flex-direction:column;flex:1"></div></div>
     <div class="tools" id="tools"></div>
   </section>
+
+  <section class="world" id="world" aria-label="world">
+    <div><h2 data-i="worldT"></h2><p data-i="worldP"></p><a class="btn" href="#news" data-i="worldB"></a></div>
+    <div class="rt" aria-hidden="true"><span class="x" style="left:2%"></span><span style="left:20%"></span><span style="left:38%"></span><span class="x" style="left:57%"></span><span style="left:76%"></span><span class="x" style="left:93%"></span><em style="left:2%" data-i="rt1"></em><em style="left:38%" data-i="rt2"></em><em style="left:76%" data-i="rt3"></em></div>
+  </section>
+  </div>
 
   <section class="sec" id="lines" hidden>
     <div class="hd"><div><h2 data-i="linesT"></h2><p data-i="linesP"></p></div></div>
@@ -319,7 +338,7 @@ footer{background:var(--deep);color:#B9C7E6;padding:28px 0 max(28px,env(safe-are
       t2: "ค้นหาข่าวย้อนหลัง", t2d: "ตามคำสำคัญ ช่วงวันที่ สาย และแหล่งข่าว",
       t3: "ไทม์ไลน์โครงการก่อสร้าง", t3d: "ความคืบหน้าเรียงตามเวลา แยกตามสาย",
       t4: "สถิติ 30 วันล่าสุด", t4d: "จำนวนข่าวแต่ละหมวด สายและแหล่งข่าวที่พบบ่อย",
-      t5: "เพิ่มเพื่อน LINE", t5d: "รับรายงานทุกเช้า 08:00 และแจ้งเตือนเมื่อมีข่าวใหม่", t5c: "เพิ่มเพื่อน",
+      t5: "เพิ่มเพื่อน LINE", t5d: "รับสรุปทุกวันจันทร์ 08:00 และแจ้งทันทีเมื่อเกิดอุบัติเหตุร้ายแรง", t5c: "เพิ่มเพื่อน",
       t6: "ติดตามผ่าน RSS", t6d: "รับข่าวล่าสุดในแอปอ่านข่าวที่คุณใช้อยู่", t6c: "เปิดฟีด",
       linesT: "ข่าวล่าสุดของแต่ละสาย", linesP: "ข่าวล่าสุดที่ระบบพบของแต่ละสาย พร้อมลิงก์ต้นฉบับ (ไม่ใช่สถานะเดินรถแบบเรียลไทม์)",
       newsT: "ข่าวล่าสุด", newsEn: "Latest", newsP: "ค้นหาด้วยคำสำคัญ ช่วงวันที่ สาย หรือแหล่งข่าว",
@@ -332,11 +351,11 @@ footer{background:var(--deep);color:#B9C7E6;padding:28px 0 max(28px,env(safe-are
       l1: "ที่มา", l2: "ไม่ซ้ำ", l3: "ลำดับความสำคัญ",
       f1t: "ลิงก์ต้นฉบับทุกข่าว", f1: "คัดจากสำนักข่าวที่น่าเชื่อถือ ไม่มีข่าวที่ AI สร้างขึ้นเอง",
       f2t: "ไม่รายงานข่าวซ้ำ", f2: "เรื่องเดียวกันจากหลายสำนักรวมเป็นหนึ่ง และแจ้งซ้ำเมื่อมีความคืบหน้าเท่านั้น",
-      f3t: "สีบอกความสำคัญ", f3: "แดง อุบัติเหตุ · เหลือง ก่อสร้าง · เขียว ประชาสัมพันธ์ · ม่วง นวัตกรรม · เทา อื่นๆ ส่งสรุปเข้า LINE ทุกเช้า 08:00",
+      f3t: "สีบอกความสำคัญ", f3: "แดง อุบัติเหตุ · เหลือง ก่อสร้าง · เขียว ประชาสัมพันธ์ · ม่วง นวัตกรรม · เทา อื่นๆ สรุปเข้า LINE ทุกวันจันทร์ 08:00 และแจ้งทันทีเมื่อเกิดอุบัติเหตุร้ายแรง",
       insT: "ไทม์ไลน์และสถิติ", insP: "สรุปจากข่าวที่ระบบเก็บไว้จริง",
       tlT: "ไทม์ไลน์ความคืบหน้าโครงการ", tlNone: "ยังไม่มีข่าวความคืบหน้าโครงการก่อสร้าง",
       stCat: "จำนวนข่าวแต่ละหมวด (30 วัน)", stDay: "ข่าวต่อวัน (14 วัน)", stLine: "สายที่ถูกกล่าวถึงมากสุด", stSrc: "แหล่งข่าวมากสุด", stNone: "ยังไม่มีข้อมูล",
-      ctaP: "รับข่าวรถไฟฟ้าสรุปทุกเช้า 08:00 ผ่าน LINE", ctaB: "เพิ่มเพื่อน LINE →",
+      ctaP: "รับสรุปข่าวรถไฟฟ้าทุกวันจันทร์ 08:00 และข่าวด่วนผ่าน LINE", ctaB: "เพิ่มเพื่อน LINE →",
       foot1: "หัวข้อข่าวแสดงตามภาษาของต้นฉบับ", rss: "ติดตาม RSS", addFriend: "เพิ่มเพื่อน LINE",
       demo: "ข้อมูลตัวอย่าง", demoMsg: "ยังโหลดข่าวจริงไม่ได้ จึงแสดงตัวอย่าง (ระบบจะลองใหม่อัตโนมัติ)", updated: "อัปเดตล่าสุด", total: "ข่าวทั้งหมด", items: "รายการ"
     },
@@ -356,7 +375,7 @@ footer{background:var(--deep);color:#B9C7E6;padding:28px 0 max(28px,env(safe-are
       t2: "Search past news", t2d: "By keyword, date range, line and source",
       t3: "Construction timeline", t3d: "Progress in date order, grouped by line",
       t4: "Last 30 days stats", t4d: "Stories per category, most mentioned lines and sources",
-      t5: "Add on LINE", t5d: "A daily report at 08:00 and alerts when news arrives", t5c: "Add friend",
+      t5: "Add on LINE", t5d: "A summary every Monday at 08:00 plus instant alerts for severe accidents", t5c: "Add friend",
       t6: "Follow by RSS", t6d: "Get the latest news in your feed reader", t6c: "Open feed",
       linesT: "Latest news for each line", linesP: "The newest story found for each line, with a link to the source (not live service status)",
       newsT: "Latest news", newsEn: "", newsP: "Search by keyword, date range, line or source",
@@ -369,11 +388,11 @@ footer{background:var(--deep);color:#B9C7E6;padding:28px 0 max(28px,env(safe-are
       l1: "Source", l2: "No repeats", l3: "Priority",
       f1t: "Every story links to its source", f1: "Picked from trusted outlets. Nothing is written by the AI.",
       f2t: "No repeated stories", f2: "The same story from several outlets is merged, and only repeated when there is progress.",
-      f3t: "Colour shows priority", f3: "Red accidents · yellow construction · green service · purple innovation · grey other. A summary goes to LINE at 08:00 every day.",
+      f3t: "Colour shows priority", f3: "Red accidents · yellow construction · green service · purple innovation · grey other. A summary goes to LINE every Monday at 08:00, and severe accidents are sent at once.",
       insT: "Timeline and statistics", insP: "Summarised from the stories actually collected",
       tlT: "Project progress timeline", tlNone: "No construction progress stories yet",
       stCat: "Stories per category (30 days)", stDay: "Stories per day (14 days)", stLine: "Most mentioned lines", stSrc: "Top sources", stNone: "No data yet",
-      ctaP: "Get a daily rail news summary at 08:00 on LINE", ctaB: "Add on LINE →",
+      ctaP: "Get a Monday 08:00 rail news summary and urgent alerts on LINE", ctaB: "Add on LINE →",
       foot1: "Headlines appear in their original language (Thai)", rss: "RSS feed", addFriend: "Add on LINE",
       demo: "Sample data", demoMsg: "Live news could not be loaded, showing samples (it will retry automatically)", updated: "Last updated", total: "Stories", items: ""
     }
@@ -595,7 +614,13 @@ footer{background:var(--deep);color:#B9C7E6;padding:28px 0 max(28px,env(safe-are
     $("demo").innerHTML = S.demo ? "<span>" + esc(t.demo) + "</span> " + esc(t.demoMsg) : "";
     $("updated").textContent = S.demo ? "" : t.updated + " " + (S.generated ? fDay(S.generated) + " " + fTime(S.generated) : "-") + " · " + t.total + " " + S.items.length + " " + t.items;
   }
-  function render() { renderStatic(); renderHero(); renderOverview(); renderLines(); renderNews(); renderInsights(); renderFoot(); }
+  function updateLD() {
+    var list = liveItems().slice(0, 20).filter(function (it) { return safeUrl(it.url); }).map(function (it, k) {
+      return { "@type": "ListItem", position: k + 1, item: { "@type": "NewsArticle", headline: it.title || "", url: safeUrl(it.url), datePublished: when(it) || undefined, publisher: { "@type": "Organization", name: it.source_name || it.source || "" } } };
+    });
+    $("ld").textContent = JSON.stringify({ "@context": "https://schema.org", "@type": "ItemList", name: "น้องเผือก · รวมข่าวรถไฟฟ้าทั่วโลก", itemListElement: list });
+  }
+  function render() { try { updateLD(); } catch (e) {} renderStatic(); renderHero(); renderOverview(); renderLines(); renderNews(); renderInsights(); renderFoot(); }
   function refilter() { S.shown = PAGE; renderNews(); }
 
   /* ---------- events ---------- */
